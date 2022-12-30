@@ -1,92 +1,111 @@
 const myLibrary = [];
+const displayLibrary = document.querySelector("#library");
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = Boolean(read);
+function Book(title, author, pages) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
 }
 
 function addBookToLibrary(book) {
-    myLibrary.push(book);
+  myLibrary.unshift(book); // add as first item
 }
 
-const displayLibrary = document.getElementById("library");
+/* Book.prototype.isRead = function isRead(checked) { // called when clicking on a checkbox, if it's checked the book is read
+  this.read = checked ?? false; // nuelish coaelescing, because it's also called on load before any checking, so return false if undefined
+}; */
 
-function displayBooks() {
-    myLibrary.forEach((book) => {
-        const displayItem = document.createElement("li");
-        const displayTitle = document.createElement("h2");
-        displayTitle.textContent = book.title;
-        const displayAuthor = document.createElement("p");
-        displayAuthor.textContent = `by ${book.author};`;
-        const displayPages = document.createElement("p");
-        displayPages.textContent = `${book.pages} pages.`;
-        const displayStatus = document.createElement("p");
-        if (book.read) {
-            displayStatus.textContent = "read";
-        } else {
-            displayStatus.textContent = "not read yet";
-        }
-        const deleteItem = document.createElement("button");
-        deleteItem.textContent = "X";
-        displayItem.appendChild(displayTitle);
-        displayItem.appendChild(displayAuthor);
-        displayItem.appendChild(displayPages);
-        displayItem.appendChild(displayStatus);
-        displayItem.appendChild(deleteItem);
-        displayItem.classList.add("card");
-        displayLibrary.appendChild(displayItem);
-        deleteItem.addEventListener("click", () => {
-            myLibrary.splice(myLibrary.indexOf(book), 1)
-            displayItem.remove();
-        });
-    });
+Book.prototype.createCard = function createCard() {
+  const displayItem = document.createElement("li");
+  const displayTitle = document.createElement("h2");
+  displayTitle.textContent = this.title;
+  const displayAuthor = document.createElement("p");
+  displayAuthor.textContent = `by ${this.author};`;
+  const displayPages = document.createElement("p");
+  displayPages.textContent = `${this.pages} pages.`;
+
+ /* const displayCheckboxStatus = document.createElement("input");
+  displayCheckboxStatus.setAttribute("type", "checkbox"); */
+
+  const displayStatus = document.createElement("p");
+  // this.isRead(this.read);
+  displayStatus.textContent = this.read;
+  /* displayCheckboxStatus.addEventListener("click", (e) => {
+    this.isRead(e.target.checked); // boolean
+    displayStatus.textContent = this.read;
+  }); */
+  const deleteItem = document.createElement("button");
+  deleteItem.textContent = "Delete book";
+  displayItem.appendChild(displayTitle);
+  displayItem.appendChild(displayAuthor);
+  displayItem.appendChild(displayPages);
+  // displayItem.appendChild(displayCheckboxStatus);
+  displayItem.appendChild(displayStatus);
+  displayItem.appendChild(deleteItem);
+  deleteItem.addEventListener("click", () => {
+    myLibrary.splice(myLibrary.indexOf(this), 1);
+    displayItem.remove();
+  });
+  displayItem.classList.add("card");
+  displayLibrary.appendChild(displayItem);
 };
+
+function updateDisplay() {
+  displayLibrary.textContent = ""; // first empty out the display array, then add all books, is there a better way?
+  myLibrary.forEach((book) => {
+    // book.isRead();
+    book.createCard();
+  });
+}
 
 const form = document.querySelector("form");
 const btnShowForm = document.getElementById("show-form");
 btnShowForm.addEventListener("click", () => {
-    form.style.display = "block";
-    btnShowForm.style.display = "none";
+  form.style.display = "block";
+  btnShowForm.style.display = "none";
 });
 
 const inputTitle = document.getElementById("title");
 const inputAuthor = document.getElementById("author");
-const inputPages= document.getElementById("pages");
+const inputPages = document.getElementById("pages");
+// const inputStatus = document.getElementById("status");
+
+
 function getValue(e) {
-    const tempBook = new Book(inputTitle.value, inputAuthor.value, inputPages.value, false);
-    addBookToLibrary(tempBook);
-    displayBooks();
-    form.style.display = "none";
-    btnShowForm.style.display = "block";
-    e.preventDefault();
-    };
+  const tempBook = new Book(
+    inputTitle.value,
+    inputAuthor.value,
+    inputPages.value,
+  );
+  /* inputStatus.addEventListener("click", () => {
+    tempBook.isRead(inputStatus.checked); // boolean
+}); */
+  addBookToLibrary(tempBook);
+  updateDisplay();
+  form.style.display = "none";
+  btnShowForm.style.display = "block";
+  e.preventDefault();
+}
 
 const btnAddBook = document.getElementById("add-book");
-btnAddBook.addEventListener("click", getValue)
+btnAddBook.addEventListener("click", getValue);
 
+// temporary manually added books, free to delete later
 
-
-
-
-// temporary
-
-const kockar = new Book("Kockar", "F.M.Dostojevski", 186, true);
-const priceIzSume = new Book("Priče iz šume", "Nikoleta Novak", 146, true);
+const kockar = new Book("Kockar", "F.M.Dostojevski", 186);
+const priceIzSume = new Book("Priče iz šume", "Nikoleta Novak", 146, false);
 const vragolaniIDzangrizala = new Book(
-    "Vragolani i džangrizala",
-    "Toni Vulf",
-    44,
-    false
+  "Vragolani i džangrizala",
+  "Toni Vulf",
+  44
 );
-const glineniUdar = new Book("Glineni udar", "Donald Lemke", 41, true);
+const glineniUdar = new Book("Glineni udar", "Donald Lemke", 41); 
 
 addBookToLibrary(kockar);
 addBookToLibrary(priceIzSume);
 addBookToLibrary(vragolaniIDzangrizala);
-addBookToLibrary(glineniUdar); 
+addBookToLibrary(glineniUdar);  
 
 // end temporary
 
-displayBooks();
+updateDisplay();
