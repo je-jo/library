@@ -24,22 +24,19 @@ Book.prototype.createCard = function createCard() {
   const displayPages = document.createElement("p");
   displayPages.textContent = `${this.pages} pages.`;
 
- /* const displayCheckboxStatus = document.createElement("input");
-  displayCheckboxStatus.setAttribute("type", "checkbox"); */
+ const displayCheckboxStatus = document.createElement("input");
+  displayCheckboxStatus.setAttribute("type", "checkbox"); 
 
   const displayStatus = document.createElement("p");
-  // this.isRead(this.read);
   displayStatus.textContent = this.read;
   /* displayCheckboxStatus.addEventListener("click", (e) => {
-    this.isRead(e.target.checked); // boolean
-    displayStatus.textContent = this.read;
   }); */
   const deleteItem = document.createElement("button");
   deleteItem.textContent = "Delete book";
   displayItem.appendChild(displayTitle);
   displayItem.appendChild(displayAuthor);
   displayItem.appendChild(displayPages);
-  // displayItem.appendChild(displayCheckboxStatus);
+  displayItem.appendChild(displayCheckboxStatus);
   displayItem.appendChild(displayStatus);
   displayItem.appendChild(deleteItem);
   deleteItem.addEventListener("click", () => {
@@ -47,16 +44,8 @@ Book.prototype.createCard = function createCard() {
     displayItem.remove();
   });
   displayItem.classList.add("card");
-  displayLibrary.appendChild(displayItem);
+  displayLibrary.insertBefore(displayItem, displayLibrary.firstChild);
 };
-
-function updateDisplay() {
-  displayLibrary.textContent = ""; // first empty out the display array, then add all books, is there a better way?
-  myLibrary.forEach((book) => {
-    // book.isRead();
-    book.createCard();
-  });
-}
 
 const form = document.querySelector("form");
 const btnShowForm = document.getElementById("show-form");
@@ -68,8 +57,7 @@ btnShowForm.addEventListener("click", () => {
 const inputTitle = document.getElementById("title");
 const inputAuthor = document.getElementById("author");
 const inputPages = document.getElementById("pages");
-// const inputStatus = document.getElementById("status");
-
+/* const inputStatus = document.getElementById("status"); */
 
 function getValue(e) {
   const tempBook = new Book(
@@ -77,11 +65,9 @@ function getValue(e) {
     inputAuthor.value,
     inputPages.value,
   );
-  /* inputStatus.addEventListener("click", () => {
-    tempBook.isRead(inputStatus.checked); // boolean
-}); */
   addBookToLibrary(tempBook);
-  updateDisplay();
+  tempBook.createCard();
+  console.table(myLibrary)
   form.style.display = "none";
   btnShowForm.style.display = "block";
   e.preventDefault();
@@ -92,7 +78,7 @@ btnAddBook.addEventListener("click", getValue);
 
 // temporary manually added books, free to delete later
 
-const kockar = new Book("Kockar", "F.M.Dostojevski", 186);
+/* const kockar = new Book("Kockar", "F.M.Dostojevski", 186);
 const priceIzSume = new Book("Priče iz šume", "Nikoleta Novak", 146, false);
 const vragolaniIDzangrizala = new Book(
   "Vragolani i džangrizala",
@@ -104,8 +90,6 @@ const glineniUdar = new Book("Glineni udar", "Donald Lemke", 41);
 addBookToLibrary(kockar);
 addBookToLibrary(priceIzSume);
 addBookToLibrary(vragolaniIDzangrizala);
-addBookToLibrary(glineniUdar);  
+addBookToLibrary(glineniUdar);  */
 
 // end temporary
-
-updateDisplay();
