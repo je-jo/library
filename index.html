@@ -7,6 +7,9 @@
     <script src="assets/js/script.js" defer></script>
     <title>Library - The Odin Project</title>
     <style>
+      * {
+        outline: 1px solid blue;
+      }
       body {
         background-color: lightyellow;
       }
@@ -41,10 +44,11 @@
     </header>
     <main>
       <button id="show-form">NEW BOOK</button>
-      <form action="">
+      <form action="" id="form-add">
         <label for="title">Title: <input type="text" id="title" /></label>
         <label for="author">Author: <input type="text" id="author" /></label>
         <label for="pages">Pages: <input type="number" id="pages" /></label>
+        <label for="status">Read? <input type="checkbox" id="status" /></label>
         <button type="submit" id="add-book">Add book</button>
       </form>
       <ul id="library"></ul>
@@ -58,11 +62,12 @@
     </footer>
     <template id="card-template">
       <li class="card">
-        <h2 class="book-title">Unnamed book</h2>
-        <p class="book-author">Unknow author;</p>
-        <p class="book-pages">Unknown pages.</p>
-        <p class="book-read">Unknown status</p>
-        <button class="book-delete">Delete book</button>
+        <h2 class="card-title"></h2>
+        <p class="card-author"></p>
+        <p class="card-pages"></p>
+        <label for="edit-status"><input type="checkbox" id="edit-status" class="edit-status">Read? </label>
+        <p class="card-read"></p>
+        <button class="card-delete">Delete book</button>
       </li>
     </template>
   </body>
