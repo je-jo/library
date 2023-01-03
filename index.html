@@ -15,8 +15,18 @@
         display: block;
       }
 
+      #library {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        list-style: none;
+      }
+
       .card {
         background-color: white;
+        min-width: 280px;
+        border: 3px solid salmon;
+        padding: 0.5rem;
       }
 
       form {
@@ -30,15 +40,14 @@
       <h1>Library</h1>
     </header>
     <main>
-      <ul id="library"></ul>
       <button id="show-form">NEW BOOK</button>
       <form action="">
         <label for="title">Title: <input type="text" id="title" /></label>
         <label for="author">Author: <input type="text" id="author" /></label>
         <label for="pages">Pages: <input type="number" id="pages" /></label>
-        <label for="status">Read? <input type="checkbox" id="status" /></label>
         <button type="submit" id="add-book">Add book</button>
       </form>
+      <ul id="library"></ul>
     </main>
     <footer>
       <p>
@@ -47,5 +56,14 @@
         <a href="https://www.theodinproject.com/">The Odin Project</a>, 2022.
       </p>
     </footer>
+    <template id="card-template">
+      <li class="card">
+        <h2 class="book-title">Unnamed book</h2>
+        <p class="book-author">Unknow author;</p>
+        <p class="book-pages">Unknown pages.</p>
+        <p class="book-read">Unknown status</p>
+        <button class="book-delete">Delete book</button>
+      </li>
+    </template>
   </body>
 </html>

@@ -48,6 +48,7 @@ A Library app to keep track of books. Built using JavaScript, HTML, and Sass for
 ### Useful resources
 
 - [How To Lint and Format Code with ESLint in Visual Studio Code](https://www.digitalocean.com/community/tutorials/linting-and-formatting-with-eslint-in-vs-code) - A tutorial for setting up ESLint for a project.
+- [Templating in HTML](https://kittygiraudel.com/2022/09/30/templating-in-html/) - "Long story short, templates are good to avoid creating complex DOM structures by hand."
 
 ## Author
 
