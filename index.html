@@ -1,74 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="assets/js/script.js" defer></script>
-    <title>Library - The Odin Project</title>
-    <style>
-      * {
-        outline: 1px solid blue;
-      }
-      body {
-        background-color: lightyellow;
-      }
 
-      label {
-        display: block;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="assets/js/script.js" defer></script>
+  <title>Library - The Odin Project</title>
+  <style>
+    * {
+      outline: 1px solid blue;
+    }
 
-      #library {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-        list-style: none;
-      }
+    body {
+      background-color: lightyellow;
+    }
 
-      .card {
-        background-color: white;
-        min-width: 280px;
-        border: 3px solid salmon;
-        padding: 0.5rem;
-      }
+    label {
+      display: block;
+    }
 
-      form {
-        display: none;
-      }
-    </style>
-  </head>
+    #library {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      list-style: none;
+    }
 
-  <body>
-    <header>
-      <h1>Library</h1>
-    </header>
-    <main>
-      <button id="show-form">NEW BOOK</button>
-      <form action="" id="form-add">
-        <label for="title">Title: <input type="text" id="title" /></label>
-        <label for="author">Author: <input type="text" id="author" /></label>
-        <label for="pages">Pages: <input type="number" id="pages" /></label>
-        <label for="status">Read? <input type="checkbox" id="status" /></label>
-        <button type="submit" id="add-book">Add book</button>
-      </form>
-      <ul id="library"></ul>
-    </main>
-    <footer>
-      <p>
-        Coded and designed by
-        <a href="https://github.com/je-jo">Jelena Jovicic</a> for
-        <a href="https://www.theodinproject.com/">The Odin Project</a>, 2022.
-      </p>
-    </footer>
-    <template id="card-template">
-      <li class="card">
-        <h2 class="card-title"></h2>
-        <p class="card-author"></p>
-        <p class="card-pages"></p>
-        <label for="edit-status"><input type="checkbox" id="edit-status" class="edit-status">Read? </label>
-        <p class="card-read"></p>
-        <button class="card-delete">Delete book</button>
-      </li>
-    </template>
-  </body>
+    .card {
+      background-color: white;
+      min-width: 280px;
+      border: 3px solid salmon;
+      padding: 0.5rem;
+    }
+
+    form {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>The Odin Library</h1>
+  </header>
+  <main>
+    <button id="btn-create">New book</button>
+    <form id="form-add">
+      <label for="input-title">Title: <input type="text" id="input-title"></label>
+      <label for="input-author">Author: <input type="text" id="input-author"></label>
+      <label for="input-pages">Pages: <input type="number" id="input-pages"></label>
+      <label for="input-read">Read? <input type="checkbox" id="input-read"></label>
+      <button type="submit">Add book</button>
+    </form>
+    <ul id="library">
+    </ul>
+  </main>
+  <footer>
+    <p>
+      Coded and designed by
+      <a href="https://github.com/je-jo" target="_blank">Jelena Jovicic</a> for
+      <a href="https://www.theodinproject.com/" target="_blank">The Odin Project</a>, 2022.
+    </p>
+  </footer>
+  <template id="card-template">
+    <li class="card">
+      <h2 class="card-title"></h2>
+      <p class="card-author"></p>
+      <p class="card-pages"></p>
+      <label for="edit-read" class="edit-read-label">Read? <input type="checkbox" id="edit-read" class="edit-read"></label>
+      <p class="card-read"></p>
+      <button class="card-delete">Delete book</button>
+    </li>
+  </template>
+</body>
+
 </html>
