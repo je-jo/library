@@ -1,0 +1,37 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the layout of the page.
+// -----------------------------------------------------------------------------
+
+body {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+header {
+    background-color: $dark1;
+    color: $light1;
+}
+
+.header-content {
+    width: min(100%, 120ch);
+    margin: 0 auto;
+    padding: 5vh clamp(1rem, 5vw, 3rem) 1rem;
+}
+
+main {
+    width: min(100%, 120ch);
+    margin: 0 auto;
+    padding: 5vh clamp(1rem, 5vw, 3rem) 1rem;
+}
+
+#form-add {
+    display: none;
+}
+
+footer {
+    text-align: center;
+    background-color: $dark1;
+    color: $light1;
+}
+

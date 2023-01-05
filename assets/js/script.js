@@ -19,15 +19,16 @@ function addBookToLibrary(book) {
   myLibrary.unshift(book);
 }
 
+Book.prototype.setId = function setId() {
+  this.id = Date.now() + myLibrary.indexOf(this);
+}
+
 Book.prototype.isRead = function isRead(checked) {
-  if (checked) {
-    this.read = "Yes.";
-  } else {
-    this.read = "Not read yet.";
-  }
+  checked ? this.read = "Yes." : this.read = "Not read yet."
 };
 
 Book.prototype.createCard = function createCard() {
+  this.setId();
   const card = template.content.cloneNode(true);
   const cardTitle = card.querySelector(".card-title");
   cardTitle.textContent = this.title;
@@ -37,7 +38,7 @@ Book.prototype.createCard = function createCard() {
   cardPages.textContent = `${this.pages} pages.`;
   const cardEditRead = card.querySelector(".edit-read");
   const editReadLabel = card.querySelector(".edit-read-label")
-  editReadLabel.setAttribute("for", `edit-read-${Date.now() + myLibrary.indexOf(this)}`)
+  editReadLabel.setAttribute("for", `edit-read-${this.id}`)
   cardEditRead.setAttribute("id", editReadLabel.getAttribute("for")) // checkbox and label must have matching and unique ids and fors
   cardEditRead.checked = inputRead.checked; // if checked on creation leave it checked
   const cardRead = card.querySelector(".card-read");
@@ -51,8 +52,10 @@ Book.prototype.createCard = function createCard() {
     cardRead.textContent = this.read;
   }); 
   cardDelete.addEventListener("click", (e) => {
-    myLibrary.splice(myLibrary.indexOf(this), 1);
-    e.currentTarget.parentNode.remove(); // same as card.remove() but it won't work because card is not added to DOM at this point.
+    if (window.confirm(`Are you sure you want to delete "${this.title}"`)) {
+      myLibrary.splice(myLibrary.indexOf(this), 1);
+      e.currentTarget.parentNode.parentNode.remove(); // same as card.remove() but it won't work because card is not added to DOM at this point.
+    }
   });
 };
 
@@ -122,3 +125,10 @@ najgoriUciteljiNaSvetu.createCard();
 priceSaImanja.createCard();
 
 // end temporary
+
+//example book
+
+/* const desetLjutihGusara = new Book("Deset Ljutih Gusara", "Ljubivoje Ršumović", 30);
+addBookToLibrary(desetLjutihGusara);
+desetLjutihGusara.isRead();
+desetLjutihGusara.createCard(); */

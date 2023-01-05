@@ -1,0 +1,242 @@
+/*
+* Andy Bell's Modern CSS Reset modified my Stephanie Eckless
+* @link https://github.com/5t3ph/html-sass-jumpstart/blob/main/src/sass/_reset.scss
+*/
+/*
+ * [Modified] Modern CSS Reset
+ * @link https://github.com/hankchizljaw/modern-css-reset
+*/
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+p,
+li,
+h1,
+h2,
+h3,
+h4 {
+  word-break: break-word;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  font-family: sans-serif;
+  font-size: 100%;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+}
+
+/* Make images easier to work with */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  *,
+*::before,
+*::after {
+    -webkit-animation-duration: 0.01ms !important;
+            animation-duration: 0.01ms !important;
+    -webkit-animation-iteration-count: 1 !important;
+            animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html {
+    scroll-behavior: initial;
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: hsl(69deg, 24%, 89%);
+}
+
+/**
+ * Basic styles for links
+ */
+a {
+  color: inherit;
+  text-decoration: none;
+  /* @include on-event {
+    color: $red;
+    text-decoration: underline;
+  } */
+}
+
+/**
+ * Basic typography style for copy text
+ */
+body {
+  color: hsl(304deg, 22%, 15%);
+  font: normal 100%/1.4 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/**
+ * Main content containers
+ * 1. Make the container full-width with a maximum width
+ * 2. Center it in the viewport
+ * 3. Leave some space on the edges, especially valuable on small screens
+ */
+.container {
+  max-width: 120ch; /* 1 */
+  margin-left: auto; /* 2 */
+  margin-right: auto; /* 2 */
+  padding-left: 20px; /* 3 */
+  padding-right: 20px; /* 3 */
+  width: 100%; /* 1 */
+}
+
+/**
+ * Hide element while making it readable for screen readers
+ * Shamelessly borrowed from HTML5Boilerplate:
+ * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
+ */
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+header {
+  background-color: hsl(304deg, 22%, 15%);
+  color: hsl(69deg, 24%, 89%);
+}
+
+.header-content {
+  width: min(100%, 120ch);
+  margin: 0 auto;
+  padding: 5vh clamp(1rem, 5vw, 3rem) 1rem;
+}
+
+main {
+  width: min(100%, 120ch);
+  margin: 0 auto;
+  padding: 5vh clamp(1rem, 5vw, 3rem) 1rem;
+}
+
+#form-add {
+  display: none;
+}
+
+footer {
+  text-align: center;
+  background-color: hsl(304deg, 22%, 15%);
+  color: hsl(69deg, 24%, 89%);
+}
+
+#library {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  padding: 2em 0;
+  gap: 2em;
+}
+
+/* .card {
+    background-color: white;
+    max-width: 15rem;
+    border: 3px solid salmon;
+    padding: 0.5rem;
+  } */
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 18rem;
+  padding: 1em;
+  gap: 1.5em;
+  border-radius: 8px;
+  background-color: hsl(0deg, 0%, 100%);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.28);
+}
+
+.card-header {
+  min-height: 6em;
+  border-bottom: 2px solid hsl(69deg, 24%, 89%);
+}
+
+.card-body > * + * {
+  margin-top: 0.8em;
+}
+
+.read-status {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-footer {
+  padding-top: 1.5em;
+  text-align: right;
+  border-top: 2px solid hsl(69deg, 24%, 89%);
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  align-self: start;
+  justify-content: center;
+  min-width: 10ch;
+  min-height: 44px;
+  padding: 0.25em 1em;
+  transition: ease background-color 0.2s;
+  border: 2px solid currentColor;
+  border-radius: 8px;
+  background-color: hsl(0deg, 0%, 100%);
+  font-size: 1.125rem;
+  line-height: 1.1;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}/*# sourceMappingURL=main.css.map */

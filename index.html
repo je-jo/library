@@ -5,50 +5,23 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/styles/main.css">
   <script src="assets/js/script.js" defer></script>
   <title>Library - The Odin Project</title>
-  <style>
-    * {
-      outline: 1px solid blue;
-    }
-
-    body {
-      background-color: lightyellow;
-    }
-
-    label {
-      display: block;
-    }
-
-    #library {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      list-style: none;
-    }
-
-    .card {
-      background-color: white;
-      min-width: 280px;
-      border: 3px solid salmon;
-      padding: 0.5rem;
-    }
-
-    form {
-      display: none;
-    }
-  </style>
 </head>
 
 <body>
   <header>
-    <h1>The Odin Library</h1>
+    <div class="header-content">
+      <h1>Library Book Tracker</h1>
+    </div>
+
   </header>
   <main>
     <button id="btn-create">New book</button>
     <form id="form-add">
-      <label for="input-title">Title: <input type="text" id="input-title"></label>
-      <label for="input-author">Author: <input type="text" id="input-author"></label>
+      <label for="input-title">Title: <input type="text" id="input-title" required></label>
+      <label for="input-author">Author: <input type="text" id="input-author" required></label>
       <label for="input-pages">Pages: <input type="number" id="input-pages"></label>
       <label for="input-read">Read? <input type="checkbox" id="input-read"></label>
       <button type="submit">Add book</button>
@@ -57,20 +30,30 @@
     </ul>
   </main>
   <footer>
-    <p>
+    <p><small>
       Coded and designed by
       <a href="https://github.com/je-jo" target="_blank">Jelena Jovicic</a> for
-      <a href="https://www.theodinproject.com/" target="_blank">The Odin Project</a>, 2022.
-    </p>
+      <a href="https://www.theodinproject.com/" target="_blank">The Odin Project</a>, 2023.
+    </small></p>
   </footer>
   <template id="card-template">
     <li class="card">
-      <h2 class="card-title"></h2>
-      <p class="card-author"></p>
-      <p class="card-pages"></p>
-      <label for="edit-read" class="edit-read-label">Read? <input type="checkbox" id="edit-read" class="edit-read"></label>
-      <p class="card-read"></p>
-      <button class="card-delete">Delete book</button>
+      <div class="card-header">
+        <h2 class="card-title"></h2>
+        <p class="card-author"></p>
+      </div>
+      <div class="card-body">
+        <p class="card-pages"></p>
+        <div class="read-status">
+          <label for="edit-read" class="edit-read-label">Read? <input type="checkbox" id="edit-read" class="edit-read"></label>
+          <p class="card-read"></p>
+        </div>
+        
+      </div>
+      <div class="card-footer">
+        <button class="card-delete">Delete book</button>
+      </div>
+     
     </li>
   </template>
 </body>
