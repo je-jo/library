@@ -27,11 +27,14 @@ Book.prototype.toggleStatus = function toggleStatus(key, checked) {
 };
 
 Book.prototype.updateLabelText = function updateLabelText(prop) {
-  const string = String(prop);
   if (this[prop]) {
-    return `${string.at(0).toUpperCase() + string.slice(1)}.`;
+    return `${prop.at(0).toUpperCase() + prop.slice(1)}.`;
   }
-  return `Not ${string} yet.`;
+  return `Not ${prop} yet.`;
+};
+
+Book.prototype.setDate = function setDate(e) {
+  return e.currentTarget.value
 };
 
 Book.prototype.createCard = function createCard() {
@@ -55,22 +58,28 @@ Book.prototype.createCard = function createCard() {
     "id",
     cardReturnedLabel.getAttribute("for")
   );
+  const cardDateInput = card.querySelector(".card-date-input");
+  // const cardDateLabel = card.querySelector(".card-date-label");
 
   const cardDelete = card.querySelector(".card-delete");
   displayLibrary.insertBefore(card, displayLibrary.firstChild); // add new books to top
 
-  cardReadCheckbox.addEventListener("click", () => {
+  cardReadCheckbox.addEventListener("change", () => {
     this.toggleStatus("read", cardReadCheckbox.checked);
     cardReadLabel.childNodes[1].textContent = this.updateLabelText("read");
     // textContent on label alone won't work because checkbox is nested within the label so changing text content would overwrite the checkbox itself.
   });
 
-  cardReturnedCheckbox.addEventListener("click", () => {
+  cardReturnedCheckbox.addEventListener("change", () => {
     this.toggleStatus("returned", cardReturnedCheckbox.checked);
     this.updateLabelText(cardReturnedLabel, "returned");
     cardReturnedLabel.childNodes[1].textContent =
       this.updateLabelText("returned");
   });
+
+  cardDateInput.addEventListener("change", (e) => {
+    this["due-date"] = this.setDate(e);
+  })
 
   cardDelete.addEventListener("click", (e) => {
     if (window.confirm(`Are you sure you want to delete "${this.title}"`)) {

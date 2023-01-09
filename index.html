@@ -9,9 +9,15 @@
   <script src="assets/js/script.js" defer></script>
   <title>Library - The Odin Project</title>
   <style>
+    .card-author {
+      font-style: italic;
+    }
     label {
       display: flex;
       gap: 0.5rem;
+    }
+    input[type="date"] {
+      width: 100%;
     }
   </style>
 </head>
@@ -49,10 +55,11 @@
       <div class="card-header">
         <h2 class="card-title"></h2>
         <p class="card-author"></p>
+        <p class="card-pages"></p>
       </div>
       <div class="card-body">
-        <p class="card-pages"></p>
         <label for="card-read" class="card-read-label"><input type="checkbox" id="card-read" class="card-read-checkbox">Not read yet.</label>
+        <label for="card-date" class="card-date-label">Return by:<input type="date" id="card-date" class="card-date-input"></label>
         <label for="card-returned" class="card-returned-label"><input type="checkbox" id="card-returned" class="card-returned-checkbox">Not returned yet.</label>
       </div>
       <div class="card-footer">
