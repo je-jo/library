@@ -14,7 +14,7 @@
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    max-width: $card-max-width;
+   // max-width: $card-max-width;
     padding: 1em;
     gap: 1.5em;
     border-radius: $border-radius;
@@ -24,20 +24,20 @@
 
   .card-header {
     min-height: 6em;
-    border-bottom: 2px solid $light1
+    border-bottom: 2px dashed $light1
   }
 
   .card-body > * + * {
     margin-top: 0.8em;
   }
 
-  .read-status {
-    display: flex;
-    justify-content: space-between;
-  }
+  // .read-status {
+  //   display: flex;
+  //   justify-content: space-between;
+  // }
 
   .card-footer {
     padding-top: 1.5em;
     text-align: right;
-    border-top: 2px solid $light1;
+    border-top: 2px dashed $light1;
   }

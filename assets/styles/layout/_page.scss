@@ -13,17 +13,6 @@ header {
     color: $light1;
 }
 
-.header-content {
-    width: min(100%, 120ch);
-    margin: 0 auto;
-    padding: 5vh clamp(1rem, 5vw, 3rem) 1rem;
-}
-
-main {
-    width: min(100%, 120ch);
-    margin: 0 auto;
-    padding: 5vh clamp(1rem, 5vw, 3rem) 1rem;
-}
 
 #form-add {
     display: none;

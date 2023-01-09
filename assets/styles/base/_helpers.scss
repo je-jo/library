@@ -17,6 +17,12 @@
   width: 100%; /* 1 */
 }
 
+.wrapper {
+  width: min(100%, 120ch);
+  margin: 0 auto;
+  padding: 5vh clamp(1rem, 5vw, 3rem) 1rem;
+}
+
 /**
  * Hide element while making it readable for screen readers
  * Shamelessly borrowed from HTML5Boilerplate:

@@ -2,39 +2,47 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/styles/main.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/styles/main.css" />
   <script src="assets/js/script.js" defer></script>
   <title>Library - The Odin Project</title>
+  <style>
+    label {
+      display: flex;
+      gap: 0.5rem;
+    }
+  </style>
 </head>
 
 <body>
   <header>
-    <div class="header-content">
+    <div class="wrapper">
       <h1>Library Book Tracker</h1>
     </div>
-
+    
   </header>
-  <main>
+  <main class="wrapper">
     <button id="btn-create">New book</button>
     <form id="form-add">
-      <label for="input-title">Title: <input type="text" id="input-title" required></label>
-      <label for="input-author">Author: <input type="text" id="input-author" required></label>
-      <label for="input-pages">Pages: <input type="number" id="input-pages"></label>
-      <label for="input-read">Read? <input type="checkbox" id="input-read"></label>
+      <label for="input-title">Title: <input type="text" id="input-title" required /></label>
+      <label for="input-author">Author: <input type="text" id="input-author" required /></label>
+      <label for="input-pages">Pages: <input type="number" id="input-pages" /></label>
       <button type="submit">Add book</button>
     </form>
     <ul id="library">
     </ul>
   </main>
   <footer>
-    <p><small>
-      Coded and designed by
-      <a href="https://github.com/je-jo" target="_blank">Jelena Jovicic</a> for
-      <a href="https://www.theodinproject.com/" target="_blank">The Odin Project</a>, 2023.
-    </small></p>
+    <p>
+      <small>
+        Coded and designed by
+        <a href="https://github.com/je-jo" target="_blank">Jelena Jovicic</a>
+        for
+        <a href="https://www.theodinproject.com/" target="_blank">The Odin Project</a>, 2023.
+      </small>
+    </p>
   </footer>
   <template id="card-template">
     <li class="card">
@@ -44,16 +52,13 @@
       </div>
       <div class="card-body">
         <p class="card-pages"></p>
-        <div class="read-status">
-          <label for="edit-read" class="edit-read-label">Read? <input type="checkbox" id="edit-read" class="edit-read"></label>
-          <p class="card-read"></p>
-        </div>
-        
+        <label for="card-read" class="card-read-label"><input type="checkbox" id="card-read" class="card-read-checkbox">Not read yet.</label>
+        <label for="card-returned" class="card-returned-label"><input type="checkbox" id="card-returned" class="card-returned-checkbox">Not returned yet.</label>
       </div>
       <div class="card-footer">
-        <button class="card-delete">Delete book</button>
+        <button class="card-edit">Edit</button>
+        <button class="card-delete">Delete</button>
       </div>
-     
     </li>
   </template>
 </body>
