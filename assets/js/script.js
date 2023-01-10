@@ -1,6 +1,8 @@
 const myLibrary = [];
 const displayLibrary = document.getElementById("library");
 
+const btnCreate = document.getElementById("btn-create");
+
 const form = document.getElementById("form-add");
 const inputTitle = document.getElementById("input-title");
 const inputAuthor = document.getElementById("input-author");
@@ -8,6 +10,22 @@ const inputPages = document.getElementById("input-pages");
 const inputDate = document.getElementById("input-date");
 
 const template = document.getElementById("card-template");
+
+const dialogDelete = document.getElementById("confirm-delete");
+const dialogDeleteText = document.getElementById("dialog-text");
+const dialogCancelDelete = document.getElementById("cancel-delete");
+const dialogConfirmDelete = document.getElementById("confirm-delete");
+
+let indexOfItemToDelete; // values set when clicking on card's delete button
+let nodeToDelete;
+
+function formatDate(date) {
+  return date.toLocaleString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
 
 function Book(title, author, pages, date) {
   this.title = title;
@@ -44,19 +62,15 @@ Book.prototype.createCard = function createCard() {
   const card = template.content.cloneNode(true); // created from template as a doc fragment and not node, must be defined as node to manipulate
   const cardTitle = card.querySelector(".card-title");
   cardTitle.textContent = this.title;
-  const cardRef = cardTitle.parentNode.parentNode; 
-  // children of doc fragments are actual nodes, so cardRef is an actual node
-  cardRef.setAttribute("id", this.id);
+  const cardReference = cardTitle.parentNode.parentNode;
+  // children of doc fragments are actual nodes, parent of the child is an actual node (grandparent here), so cardReference is an actual node.
+  cardReference.setAttribute("id", this.id);
   const cardAuthor = card.querySelector(".card-author");
   cardAuthor.textContent = `by ${this.author};`;
   const cardPages = card.querySelector(".card-pages");
   cardPages.textContent = `${this.pages} pages.`;
   const cardDate = card.querySelector(".card-date");
-  cardDate.textContent = `Return by: ${this.date.toLocaleString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  })}.`;
+  cardDate.textContent = `Return by: ${formatDate(this.date)}.`;
   const cardReadCheckbox = card.querySelector(".card-read-checkbox");
   const cardReadLabel = card.querySelector(".card-read-label");
   const cardReturnedCheckbox = card.querySelector(".card-returned-checkbox");
@@ -69,40 +83,40 @@ Book.prototype.createCard = function createCard() {
     cardReturnedLabel.getAttribute("for")
   );
   const cardDelete = card.querySelector(".card-delete");
+
   displayLibrary.insertBefore(card, displayLibrary.firstChild); // add new books to top
+
   cardReadCheckbox.addEventListener("change", () => {
     this.toggleStatus("read", cardReadCheckbox.checked);
     cardReadLabel.childNodes[1].textContent = this.updateLabelText("read");
     // textContent on label alone won't work because checkbox is nested within the label so changing text content would overwrite the checkbox itself.
   });
+
   cardReturnedCheckbox.addEventListener("change", () => {
     this.toggleStatus("returned", cardReturnedCheckbox.checked);
-    this.updateLabelText(cardReturnedLabel, "returned");
+    // this.updateLabelText(cardReturnedLabel, "returned");
     cardReturnedLabel.childNodes[1].textContent =
       this.updateLabelText("returned");
   });
 
-  const dialogDelete = document.querySelector(".confirm");
-  const dialogDeleteText = dialogDelete.querySelector(".dialog-text");
-  const dialogCancelDelete = dialogDelete.querySelector(".cancel-delete");
-  const dialogConfirmDelete = dialogDelete.querySelector(".confirm-delete");
-
   cardDelete.addEventListener("click", () => {
     dialogDeleteText.textContent = `Are you sure you want to remove "${this.title}"?`;
+    indexOfItemToDelete = myLibrary.indexOf(this);
+    nodeToDelete = cardReference;
     dialogDelete.showModal();
-  });
-
-  dialogCancelDelete.addEventListener("click", () => {
-    dialogDelete.close();
-  });
-
-  dialogConfirmDelete.addEventListener("click", () => {    
-    myLibrary.splice(myLibrary.indexOf(this), 1);
-    cardRef.remove();
   });
 };
 
-const btnCreate = document.getElementById("btn-create");
+dialogCancelDelete.addEventListener("click", () => {
+  dialogDelete.close();
+});
+
+dialogConfirmDelete.addEventListener("click", () => {
+  myLibrary.splice(indexOfItemToDelete, 1);
+  nodeToDelete.remove();
+  dialogDelete.close();
+});
+
 btnCreate.addEventListener("click", () => {
   form.style.display = "block";
   btnCreate.style.display = "none";
@@ -118,7 +132,7 @@ function createBook(e) {
   if (inputDate.value) {
     tempBook.date = new Date(inputDate.value);
   } else {
-    tempBook.date = "No date set.";
+    tempBook.date = "No date set";
   }
   addBookToLibrary(tempBook);
   tempBook.createCard();
@@ -197,7 +211,7 @@ glineniUdar.createCard();
 idiot.createCard();
 desetLjutihGusara.createCard();
 najgoriUciteljiNaSvetu.createCard();
-priceSaImanja.createCard(); 
+priceSaImanja.createCard();
 
 // end temporary
 
