@@ -5,13 +5,15 @@ const form = document.getElementById("form-add");
 const inputTitle = document.getElementById("input-title");
 const inputAuthor = document.getElementById("input-author");
 const inputPages = document.getElementById("input-pages");
+const inputDate = document.getElementById("input-date");
 
 const template = document.getElementById("card-template");
 
-function Book(title, author, pages) {
+function Book(title, author, pages, date) {
   this.title = title;
   this.author = author;
   this.pages = pages;
+  this.date = date;
 }
 
 function addBookToLibrary(book) {
@@ -34,19 +36,27 @@ Book.prototype.updateLabelText = function updateLabelText(prop) {
 };
 
 Book.prototype.setDate = function setDate(e) {
-  return e.currentTarget.value
+  return e.currentTarget.value;
 };
 
 Book.prototype.createCard = function createCard() {
   this.setId();
-  const card = template.content.cloneNode(true);
+  const card = template.content.cloneNode(true); // created from template as a doc fragment and not node, must be defined as node to manipulate
   const cardTitle = card.querySelector(".card-title");
   cardTitle.textContent = this.title;
+  const cardRef = cardTitle.parentNode.parentNode; 
+  // children of doc fragments are actual nodes, so cardRef is an actual node
+  cardRef.setAttribute("id", this.id);
   const cardAuthor = card.querySelector(".card-author");
   cardAuthor.textContent = `by ${this.author};`;
   const cardPages = card.querySelector(".card-pages");
   cardPages.textContent = `${this.pages} pages.`;
-
+  const cardDate = card.querySelector(".card-date");
+  cardDate.textContent = `Return by: ${this.date.toLocaleString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  })}.`;
   const cardReadCheckbox = card.querySelector(".card-read-checkbox");
   const cardReadLabel = card.querySelector(".card-read-label");
   const cardReturnedCheckbox = card.querySelector(".card-returned-checkbox");
@@ -58,18 +68,13 @@ Book.prototype.createCard = function createCard() {
     "id",
     cardReturnedLabel.getAttribute("for")
   );
-  const cardDateInput = card.querySelector(".card-date-input");
-  // const cardDateLabel = card.querySelector(".card-date-label");
-
   const cardDelete = card.querySelector(".card-delete");
   displayLibrary.insertBefore(card, displayLibrary.firstChild); // add new books to top
-
   cardReadCheckbox.addEventListener("change", () => {
     this.toggleStatus("read", cardReadCheckbox.checked);
     cardReadLabel.childNodes[1].textContent = this.updateLabelText("read");
     // textContent on label alone won't work because checkbox is nested within the label so changing text content would overwrite the checkbox itself.
   });
-
   cardReturnedCheckbox.addEventListener("change", () => {
     this.toggleStatus("returned", cardReturnedCheckbox.checked);
     this.updateLabelText(cardReturnedLabel, "returned");
@@ -77,15 +82,23 @@ Book.prototype.createCard = function createCard() {
       this.updateLabelText("returned");
   });
 
-  cardDateInput.addEventListener("change", (e) => {
-    this["due-date"] = this.setDate(e);
-  })
+  const dialogDelete = document.querySelector(".confirm");
+  const dialogDeleteText = dialogDelete.querySelector(".dialog-text");
+  const dialogCancelDelete = dialogDelete.querySelector(".cancel-delete");
+  const dialogConfirmDelete = dialogDelete.querySelector(".confirm-delete");
 
-  cardDelete.addEventListener("click", (e) => {
-    if (window.confirm(`Are you sure you want to delete "${this.title}"`)) {
-      myLibrary.splice(myLibrary.indexOf(this), 1);
-      e.currentTarget.parentNode.parentNode.remove(); // same as card.remove() but it won't work because card is not added to DOM at this point.
-    }
+  cardDelete.addEventListener("click", () => {
+    dialogDeleteText.textContent = `Are you sure you want to remove "${this.title}"?`;
+    dialogDelete.showModal();
+  });
+
+  dialogCancelDelete.addEventListener("click", () => {
+    dialogDelete.close();
+  });
+
+  dialogConfirmDelete.addEventListener("click", () => {    
+    myLibrary.splice(myLibrary.indexOf(this), 1);
+    cardRef.remove();
   });
 };
 
@@ -99,8 +112,14 @@ function createBook(e) {
   const tempBook = new Book(
     inputTitle.value,
     inputAuthor.value,
-    Number(inputPages.value)
+    Number(inputPages.value),
+    inputDate.value
   );
+  if (inputDate.value) {
+    tempBook.date = new Date(inputDate.value);
+  } else {
+    tempBook.date = "No date set.";
+  }
   addBookToLibrary(tempBook);
   tempBook.createCard();
   form.style.display = "none";
@@ -113,29 +132,53 @@ form.addEventListener("submit", createBook);
 
 // temporary manually added books, free to delete later:
 
-const kockar = new Book("Kockar", "F. M. Dostojevski", 186);
-const priceIzSume = new Book("Priče iz šume", "Nikoleta Novak", 146);
+const kockar = new Book(
+  "Kockar",
+  "F. M. Dostojevski",
+  186,
+  new Date("2022-12-23")
+);
+const priceIzSume = new Book(
+  "Priče iz šume",
+  "Nikoleta Novak",
+  146,
+  new Date("2022-12-23")
+);
 const vragolaniIDzangrizala = new Book(
   "Vragolani i džangrizala",
   "Toni Vulf",
-  44
+  44,
+  new Date("2022-12-23")
 );
-const glineniUdar = new Book("Glineni udar", "Donald Lemke", 41);
-const idiot = new Book("Idiot", "F. M. Dostojevski", 681);
+const glineniUdar = new Book(
+  "Glineni udar",
+  "Donald Lemke",
+  41,
+  new Date("2022-12-23")
+);
+const idiot = new Book(
+  "Idiot",
+  "F. M. Dostojevski",
+  681,
+  new Date("2022-12-23")
+);
 const desetLjutihGusara = new Book(
   "Deset Ljutih Gusara",
   "Ljubivoje Ršumović",
-  30
+  30,
+  new Date("2023-01-17")
 );
 const najgoriUciteljiNaSvetu = new Book(
   "Najgori učitelji na svetu",
   "Dejvid Valijams",
-  304
+  304,
+  new Date("2023-01-17")
 );
 const priceSaImanja = new Book(
   "Priče sa imanja",
   "Paskal Veder d'Orija, Pjer Kuron",
-  112
+  112,
+  new Date("2023-01-17")
 );
 
 addBookToLibrary(kockar);
@@ -147,23 +190,6 @@ addBookToLibrary(desetLjutihGusara);
 addBookToLibrary(najgoriUciteljiNaSvetu);
 addBookToLibrary(priceSaImanja);
 
-kockar.toggleStatus("read");
-priceIzSume.toggleStatus("read");
-vragolaniIDzangrizala.toggleStatus("read");
-glineniUdar.toggleStatus("read");
-idiot.toggleStatus("read");
-desetLjutihGusara.toggleStatus("read");
-najgoriUciteljiNaSvetu.toggleStatus("read");
-priceSaImanja.toggleStatus("read");
-kockar.toggleStatus("returned");
-priceIzSume.toggleStatus("returned");
-vragolaniIDzangrizala.toggleStatus("returned");
-glineniUdar.toggleStatus("returned");
-idiot.toggleStatus("returned");
-desetLjutihGusara.toggleStatus("returned");
-najgoriUciteljiNaSvetu.toggleStatus("returned");
-priceSaImanja.toggleStatus("returned");
-
 kockar.createCard();
 priceIzSume.createCard();
 vragolaniIDzangrizala.createCard();
@@ -171,7 +197,7 @@ glineniUdar.createCard();
 idiot.createCard();
 desetLjutihGusara.createCard();
 najgoriUciteljiNaSvetu.createCard();
-priceSaImanja.createCard();
+priceSaImanja.createCard(); 
 
 // end temporary
 

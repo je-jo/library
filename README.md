@@ -2,7 +2,7 @@ WIP
 
 # The Odin Project - Library
 
-A Library app to keep track of books. Built using JavaScript, HTML, and Sass for [The Odin Project](https://www.theodinproject.com).
+A Library app to keep track of borrowed books. Built using JavaScript, HTML, and Sass for [The Odin Project](https://www.theodinproject.com).
 
 ## Table of contents
 
@@ -20,7 +20,7 @@ A Library app to keep track of books. Built using JavaScript, HTML, and Sass for
 
 ### Description
 
-A small book tracking app made as a part of [The Odin Project](https://www.theodinproject.com) curriculum, with added functionality to keep track of dates when books are due to be returned to the library.
+A small borrowed books tracking app made as a part of [The Odin Project](https://www.theodinproject.com) curriculum, with added functionality to keep track of dates when books are due to be returned.
 
 ### Screenshot
 
@@ -45,12 +45,15 @@ A small book tracking app made as a part of [The Odin Project](https://www.theod
 
 This project uses templating technique to clone a "card" element instead of creating a new one each time a new book is created. 
 
+Dialog element is used instead of confirm prompt for deletion.
+
 ### Useful resources
 
 - [How To Lint and Format Code with ESLint in Visual Studio Code](https://www.digitalocean.com/community/tutorials/linting-and-formatting-with-eslint-in-vs-code) - A tutorial for setting up ESLint for a project.
 - [Templating in HTML](https://kittygiraudel.com/2022/09/30/templating-in-html/) - "Long story short, templates are good to avoid creating complex DOM structures by hand."
 - [7-1 pattern boilerplate](https://github.com/KittyGiraudel/sass-boilerplate/tree/master/stylesheets) - A boilerplate for 7-1 Sass Architecture.
 - [HTML / Sass Jumpstart]() - Mostly plucked some sensible values (font sizes, spacings, etc) from here.
+- [Introducing the Dialog Element](https://webkit.org/blog/12209/introducing-the-dialog-element/).
 
 ## Author
 

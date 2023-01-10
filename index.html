@@ -12,34 +12,35 @@
     .card-author {
       font-style: italic;
     }
+
     label {
       display: flex;
       gap: 0.5rem;
-    }
-    input[type="date"] {
-      width: 100%;
     }
   </style>
 </head>
 
 <body>
+
   <header>
     <div class="wrapper">
       <h1>Library Book Tracker</h1>
     </div>
-    
   </header>
+
   <main class="wrapper">
     <button id="btn-create">New book</button>
     <form id="form-add">
       <label for="input-title">Title: <input type="text" id="input-title" required /></label>
       <label for="input-author">Author: <input type="text" id="input-author" required /></label>
       <label for="input-pages">Pages: <input type="number" id="input-pages" /></label>
+      <label for="input-date">Return by: <input type="date" id="input-date" /></label>
       <button type="submit">Add book</button>
     </form>
     <ul id="library">
     </ul>
   </main>
+
   <footer>
     <p>
       <small>
@@ -50,6 +51,7 @@
       </small>
     </p>
   </footer>
+
   <template id="card-template">
     <li class="card">
       <div class="card-header">
@@ -58,16 +60,28 @@
         <p class="card-pages"></p>
       </div>
       <div class="card-body">
-        <label for="card-read" class="card-read-label"><input type="checkbox" id="card-read" class="card-read-checkbox">Not read yet.</label>
-        <label for="card-date" class="card-date-label">Return by:<input type="date" id="card-date" class="card-date-input"></label>
-        <label for="card-returned" class="card-returned-label"><input type="checkbox" id="card-returned" class="card-returned-checkbox">Not returned yet.</label>
+        <p class="card-date"></p>
+        <label for="card-read" class="card-read-label"><input type="checkbox" id="card-read"
+            class="card-read-checkbox">Not read yet.</label>
+        <label for="card-returned" class="card-returned-label"><input type="checkbox" id="card-returned"
+            class="card-returned-checkbox">Not returned yet.</label>
       </div>
       <div class="card-footer">
         <button class="card-edit">Edit</button>
         <button class="card-delete">Delete</button>
+        <dialog class="confirm">
+          <div class="dialog-body">
+            <p class="dialog-text"></p>
+            <div>
+              <button class="cancel-delete" value="cancel">Cancel</button>
+              <button class="confirm-delete" value="default">Delete</button>
+            </div>
+          </div>
+        </dialog>
       </div>
     </li>
   </template>
+
 </body>
 
 </html>
