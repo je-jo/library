@@ -4,30 +4,26 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A small book management app to keep track of your borrowed books.">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <meta name="theme-color" content="#2f1e2e">
+    <link rel="preload" href="assets/fonts/bitter-v32-latin-ext_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/styles/main.css" />
     <script src="assets/js/script.js" defer></script>
     <title>Library - The Odin Project</title>
-    <style>
-      .card-author {
-        font-style: italic;
-      }
-
-      label {
-        display: flex;
-        gap: 0.5rem;
-      }
-    </style>
   </head>
 
   <body>
-    <header>
+    <header class="color-invert">
       <div class="wrapper">
         <h1>Library Book Tracker</h1>
       </div>
     </header>
 
     <main class="wrapper">
-      <button id="btn-create">New book</button>
+      <div class="wrapper wrapper--button">
+        <button id="btn-create">New book</button>
+      </div>
       <form id="form-add">
         <label for="input-title"
           >Title: <input type="text" id="input-title" required
@@ -46,7 +42,7 @@
       <ul id="library"></ul>
     </main>
 
-    <footer>
+    <footer class="color-invert">
       <p>
         <small>
           Coded and designed by
@@ -83,17 +79,17 @@
             />Not returned yet.</label
           >
         </div>
-        <div class="card-footer">
+        <div class="card-footer wrapper wrapper--button">
           <button class="card-edit">Edit</button>
           <button class="card-delete">Delete</button>
         </div>
       </li>
     </template>
 
-    <dialog id="confirm-delete">
+    <dialog id="dialog-delete">
       <div class="dialog-body">
         <p id="dialog-text"></p>
-        <div>
+        <div class="wrapper wrapper--button">
           <button id="cancel-delete" value="cancel">Cancel</button>
           <button id="confirm-delete" value="default">Delete</button>
         </div>

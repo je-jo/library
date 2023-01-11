@@ -1,7 +1,24 @@
 /**
  * Basic typography style for copy text
  */
-body {
-  color: $text-color;
-  font: normal 100% / 1.4 $sans-serif-stack;
+
+h1,
+h2 {
+  font-family: $serif-stack;
+  line-height: 1.15;
+}
+
+h1 {
+  font-size: $fs-h1;
+  font-size: min(max(3rem, 5vw), $fs-h1);
+}
+
+h2 {
+  font-size: $fs-h2;
+  font-size: min(max(1.5rem, 3vw), $fs-h2);
+  margin: 0.65rem 0;
+}
+
+p, label {
+  font-size: $fs-text;
 }

@@ -2,10 +2,6 @@
 * Andy Bell's Modern CSS Reset modified my Stephanie Eckless
 * @link https://github.com/5t3ph/html-sass-jumpstart/blob/main/src/sass/_reset.scss
 */
-/*
- * [Modified] Modern CSS Reset
- * @link https://github.com/hankchizljaw/modern-css-reset
-*/
 /* Box sizing rules */
 *,
 *::before,
@@ -81,13 +77,26 @@ select {
     scroll-behavior: initial;
   }
 }
+.color-invert {
+  background-color: rgb(47, 30, 46);
+  color: #e8eadc;
+}
+
 * {
   margin: 0;
   padding: 0;
 }
+*:focus-visible {
+  outline: 3px dotted hsl(5deg, 83%, 64%);
+  outline-offset: 3px;
+}
 
 body {
-  background-color: hsl(69deg, 24%, 89%);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background-color: #e8eadc;
+  background-image: linear-gradient(180deg, hsl(69deg, 28%, 95%) 0%, hsl(66deg, 26%, 93%) 21%, hsl(65deg, 23%, 90%) 30%, hsl(60deg, 21%, 87%) 39%, hsl(60deg, 18%, 84%) 46%, hsl(52deg, 16%, 82%) 54%, hsl(55deg, 12%, 79%) 61%, hsl(51deg, 11%, 76%) 69%, hsl(48deg, 7%, 74%) 79%, hsl(45deg, 5%, 71%) 100%);
+  color: rgb(47, 30, 46);
 }
 
 /**
@@ -96,117 +105,123 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-  /* @include on-event {
-    color: $red;
-    text-decoration: underline;
-  } */
+}
+a:hover {
+  color: hsl(45deg, 99%, 55%);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  transition: ease all 0.2s;
 }
 
+/* bitter-regular - latin */
+@font-face {
+  font-family: "Bitter";
+  font-style: normal;
+  font-weight: 400;
+  src: local(""), url("../fonts/bitter-v32-latin-ext_latin-regular.woff2") format("woff2"), url("../fonts/bitter-v32-latin-ext_latin-regular.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-display: swap;
+}
 /**
  * Basic typography style for copy text
  */
-body {
-  color: hsl(308deg, 13%, 23%);
-  font: normal 100%/1.4 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+h1,
+h2 {
+  font-family: "Bitter", serif;
+  line-height: 1.15;
 }
 
-/**
- * Main content containers
- * 1. Make the container full-width with a maximum width
- * 2. Center it in the viewport
- * 3. Leave some space on the edges, especially valuable on small screens
- */
-.container {
-  max-width: 120ch; /* 1 */
-  margin-left: auto; /* 2 */
-  margin-right: auto; /* 2 */
-  padding-left: 20px; /* 3 */
-  padding-right: 20px; /* 3 */
-  width: 100%; /* 1 */
+h1 {
+  font-size: 4rem;
+  font-size: min(max(3rem, 5vw), 4rem);
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-size: min(max(1.5rem, 3vw), 1.8rem);
+  margin: 0.65rem 0;
+}
+
+p, label {
+  font-size: 1.15rem;
 }
 
 .wrapper {
-  width: min(100%, 120ch);
+  width: min(100%, 150ch);
   margin: 0 auto;
   padding: 5vh clamp(1rem, 5vw, 3rem) 1rem;
 }
 
-/**
- * Hide element while making it readable for screen readers
- * Shamelessly borrowed from HTML5Boilerplate:
- * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
- */
-.visually-hidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
+.wrapper--button {
+  display: flex;
+  justify-content: center;
+  padding: 0.8rem 0;
+  gap: 0.8rem;
+}
+
+.sr-only {
   position: absolute;
   width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-body {
-  min-height: 100vh;
+footer {
+  padding: 0.5rem 0;
+  text-align: center;
+}
+
+#library {
+  list-style: none;
   display: grid;
-  grid-template-rows: auto 1fr auto;
-}
-
-header {
-  background-color: hsl(304deg, 22%, 15%);
-  color: hsl(69deg, 24%, 89%);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  padding: 3rem 0;
+  gap: 2rem;
 }
 
 #form-add {
   display: none;
 }
 
-footer {
-  text-align: center;
-  background-color: hsl(304deg, 22%, 15%);
-  color: hsl(69deg, 24%, 89%);
-}
-
-#library {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
-  padding: 2em 0;
-  gap: 2em;
-}
-
-/* .card {
-    background-color: white;
-    max-width: 15rem;
-    border: 3px solid salmon;
-    padding: 0.5rem;
-  } */
 .card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  padding: 1em;
-  gap: 1.5em;
+  display: grid;
+  grid-template-rows: 1fr 1fr auto;
+  gap: 1rem;
+  padding: 1rem;
+  min-height: 25rem;
   border-radius: 8px;
   background-color: hsl(0deg, 0%, 100%);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 3px 5px rgba(47, 30, 46, 0.28);
+}
+
+.card-header,
+.card-body {
+  display: grid;
 }
 
 .card-header {
-  min-height: 6em;
-  border-bottom: 2px dashed hsl(69deg, 24%, 89%);
+  align-content: space-between;
 }
 
-.card-body > * + * {
-  margin-top: 0.8em;
+.card-body {
+  align-content: end;
+  gap: 0.5rem;
 }
 
+.card-body,
 .card-footer {
-  padding-top: 1.5em;
-  text-align: right;
-  border-top: 2px dashed hsl(69deg, 24%, 89%);
+  border-top: 2px dashed #e8eadc;
+}
+
+.card label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
 }
 
 button {
@@ -216,8 +231,8 @@ button {
   justify-content: center;
   min-width: 10ch;
   min-height: 44px;
-  padding: 0.25em 1em;
-  transition: ease background-color 0.2s;
+  padding: 0.2em 0.9em;
+  transition: ease all 0.2s;
   border: 2px solid currentColor;
   border-radius: 8px;
   background-color: hsl(0deg, 0%, 100%);
@@ -229,26 +244,28 @@ button {
   text-decoration: none;
   cursor: pointer;
 }
+button:hover, button:focus {
+  background-color: hsl(45deg, 99%, 55%);
+}
 
 dialog {
   margin: auto;
+  border-radius: 4px;
+  border: 1px solid hsl(5deg, 83%, 64%);
 }
 
 .dialog-body {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.8rem;
   margin: auto;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 dialog::-webkit-backdrop {
-  background: rgba(0, 0, 0, 0.5);
-  -webkit-transition: ease background-color 0.2s;
-  transition: ease background-color 0.2s;
+  background: rgba(66, 51, 64, 0.5);
 }
 
 dialog::backdrop {
-  background: rgba(0, 0, 0, 0.5);
-  transition: ease background-color 0.2s;
+  background: rgba(66, 51, 64, 0.5);
 }/*# sourceMappingURL=main.css.map */

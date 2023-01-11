@@ -2,25 +2,8 @@
 // This file contains all styles related to the layout of the page.
 // -----------------------------------------------------------------------------
 
-body {
-    min-height: 100vh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-}
-
-header {
-    background-color: $dark1;
-    color: $light1;
-}
-
-
-#form-add {
-    display: none;
-}
-
 footer {
+    padding: 0.5rem 0;
     text-align: center;
-    background-color: $dark1;
-    color: $light1;
 }
 

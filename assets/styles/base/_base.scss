@@ -2,16 +2,47 @@
 // This file contains very basic styles.
 // -----------------------------------------------------------------------------
 
+/// Set base colors
+$bg-color: $light1;
+$text-color: $dark1;
+$accent: $red;
+
+/// Set invertcolors
+.color-invert {
+  $bg-color: $dark1;
+  $text-color: $light1;
+  background-color: $bg-color;
+  color: $text-color;
+}
 
 * {
   margin: 0;
   padding: 0;
   // outline: 1px solid salmon;
+  &:focus-visible {
+    outline: 3px dotted $accent;
+    outline-offset: 3px;
+  }
 }
 
 body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   background-color: $bg-color;
+  background-image: linear-gradient(180deg,
+      hsl(69deg 28% 95%) 0%,
+      hsl(66deg 26% 93%) 21%,
+      hsl(65deg 23% 90%) 30%,
+      hsl(60deg 21% 87%) 39%,
+      hsl(60deg 18% 84%) 46%,
+      hsl(52deg 16% 82%) 54%,
+      hsl(55deg 12% 79%) 61%,
+      hsl(51deg 11% 76%) 69%,
+      hsl(48deg 7% 74%) 79%,
+      hsl(45deg 5% 71%) 100%); 
+  color: $text-color;
 }
+
 
 /**
  * Basic styles for links
@@ -19,9 +50,10 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-
-  /* @include on-event {
-    color: $red;
+  &:hover {
+    color: $yellow;
     text-decoration: underline;
-  } */
+    text-underline-offset: 6px;
+    transition: $transition;
+  }
 }

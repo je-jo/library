@@ -20,7 +20,7 @@ A Library app to keep track of borrowed books. Built using JavaScript, HTML, and
 
 ### Description
 
-A small borrowed books tracking app made as a part of [The Odin Project](https://www.theodinproject.com) curriculum, with added functionality to keep track of dates when books are due to be returned.
+A small borrowed books tracking app made as a part of [The Odin Project](https://www.theodinproject.com) curriculum, with added functionality to keep track of dates when books are due to be returned. User can add, edit and delete book records, and track the read and returned status.
 
 ### Screenshot
 
@@ -36,16 +36,18 @@ A small borrowed books tracking app made as a part of [The Odin Project](https:/
 ### Built with
 
 - Semantic HTML5 markup
-- Sass
+- Sass (7-in-1 architecture)
 - CSS Grid
 - Mobile-first workflow
 - JavaScript
 
 ### The process
 
-This project uses templating technique to clone a "card" element instead of creating a new one each time a new book is created. 
+The project's purpose is to get familiar with the concept of prototypal inheritance in JavaScript, but I also used it as a training ground for other web development techniques.
 
-Dialog element is used instead of confirm prompt for deletion.
+This project uses templating method (the HTML "template" element) to clone a "card", instead of creating a new one each time a new book is added. 
+
+The "dialog" element is used instead of confirm prompt for deletion.
 
 ### Useful resources
 
@@ -53,6 +55,7 @@ Dialog element is used instead of confirm prompt for deletion.
 - [Templating in HTML](https://kittygiraudel.com/2022/09/30/templating-in-html/) - "Long story short, templates are good to avoid creating complex DOM structures by hand."
 - [7-1 pattern boilerplate](https://github.com/KittyGiraudel/sass-boilerplate/tree/master/stylesheets) - A boilerplate for 7-1 Sass Architecture.
 - [HTML / Sass Jumpstart]() - Mostly plucked some sensible values (font sizes, spacings, etc) from here.
+- [google web fonts helper](https://gwfh.mranftl.com/fonts) - A Hassle-Free Way to Self-Host Google Fonts.
 - [Introducing the Dialog Element](https://webkit.org/blog/12209/introducing-the-dialog-element/).
 
 ## Author

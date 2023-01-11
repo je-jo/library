@@ -11,7 +11,7 @@ const inputDate = document.getElementById("input-date");
 
 const template = document.getElementById("card-template");
 
-const dialogDelete = document.getElementById("confirm-delete");
+const dialogDelete = document.getElementById("dialog-delete");
 const dialogDeleteText = document.getElementById("dialog-text");
 const dialogCancelDelete = document.getElementById("cancel-delete");
 const dialogConfirmDelete = document.getElementById("confirm-delete");
@@ -59,11 +59,12 @@ Book.prototype.setDate = function setDate(e) {
 
 Book.prototype.createCard = function createCard() {
   this.setId();
-  const card = template.content.cloneNode(true); // created from template as a doc fragment and not node, must be defined as node to manipulate
+  const card = template.content.cloneNode(true); // created from template as a #document-fragment and not node, must be defined as node to manipulate
   const cardTitle = card.querySelector(".card-title");
   cardTitle.textContent = this.title;
   const cardReference = cardTitle.parentNode.parentNode;
-  // children of doc fragments are actual nodes, parent of the child is an actual node (grandparent here), so cardReference is an actual node.
+  // Children of doc fragments are actual nodes. To reference doc fragment as a node, it can be defined as a parent of it's child (grandparent in this case). 
+  // Otherwise, the usual node methods (setAttribute(), remove()...) won't work.
   cardReference.setAttribute("id", this.id);
   const cardAuthor = card.querySelector(".card-author");
   cardAuthor.textContent = `by ${this.author};`;
@@ -89,14 +90,12 @@ Book.prototype.createCard = function createCard() {
   cardReadCheckbox.addEventListener("change", () => {
     this.toggleStatus("read", cardReadCheckbox.checked);
     cardReadLabel.childNodes[1].textContent = this.updateLabelText("read");
-    // textContent on label alone won't work because checkbox is nested within the label so changing text content would overwrite the checkbox itself.
+    // textContent on label element alone won't work because checkbox is nested within the label so changing text content would overwrite the checkbox itself.
   });
 
   cardReturnedCheckbox.addEventListener("change", () => {
     this.toggleStatus("returned", cardReturnedCheckbox.checked);
-    // this.updateLabelText(cardReturnedLabel, "returned");
-    cardReturnedLabel.childNodes[1].textContent =
-      this.updateLabelText("returned");
+    cardReturnedLabel.childNodes[1].textContent = this.updateLabelText("returned");
   });
 
   cardDelete.addEventListener("click", () => {
@@ -211,13 +210,13 @@ glineniUdar.createCard();
 idiot.createCard();
 desetLjutihGusara.createCard();
 najgoriUciteljiNaSvetu.createCard();
-priceSaImanja.createCard();
+priceSaImanja.createCard(); 
 
 // end temporary
 
 // example book
 
-/* const desetLjutihGusara = new Book("Deset Ljutih Gusara", "Ljubivoje Ršumović", 30);
+/* const desetLjutihGusara = new Book("Deset Ljutih Gusara", "Ljubivoje Ršumović", 30, new Date("2023-01-17"));
 addBookToLibrary(desetLjutihGusara);
 desetLjutihGusara.toggleStatus("read");
 desetLjutihGusara.toggleStatus("returned");

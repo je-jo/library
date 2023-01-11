@@ -2,10 +2,12 @@
 // This file contains all styles related to the grid of books.
 // -----------------------------------------------------------------------------
 
+
 #library {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, $card-max-width), 1fr));
-    padding: 2em 0;
-    gap: 2em;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    padding: 3rem 0;
+    gap: 2rem;
 }
+

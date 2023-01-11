@@ -9,7 +9,7 @@ button {
     justify-content: center;
     min-width: 10ch;
     min-height: 44px;
-    padding: 0.25em 1em;
+    padding: 0.2em 0.9em;
     transition: $transition;
     border: 2px solid currentColor;
     border-radius: $border-radius;
@@ -21,4 +21,7 @@ button {
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
+    &:hover, &:focus {
+        background-color: $yellow;
+    }
 }

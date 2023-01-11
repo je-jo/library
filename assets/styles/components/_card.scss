@@ -2,42 +2,43 @@
 // This file contains all styles related to the card component.
 // -----------------------------------------------------------------------------
 
-/* .card {
-    background-color: white;
-    max-width: 15rem;
-    border: 3px solid salmon;
-    padding: 0.5rem;
-  } */
 
-  .card{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-   // max-width: $card-max-width;
-    padding: 1em;
-    gap: 1.5em;
-    border-radius: $border-radius;
-    background-color: $white;
-    box-shadow: $box-shadow;
-  }
+#form-add {
+  display: none;
+}
 
-  .card-header {
-    min-height: 6em;
-    border-bottom: 2px dashed $light1
-  }
+.card {
+  display: grid;
+  grid-template-rows: 1fr 1fr auto;
+  gap: 1rem;
+  padding: 1rem;
+  min-height: 25rem;
+  border-radius: $border-radius;
+  background-color: $white;
+  box-shadow: $box-shadow;
+}
 
-  .card-body > * + * {
-    margin-top: 0.8em;
-  }
+.card-header,
+.card-body {
+display: grid;
+}
 
-  // .read-status {
-  //   display: flex;
-  //   justify-content: space-between;
-  // }
+.card-header {
+  align-content: space-between;
+}
 
-  .card-footer {
-    padding-top: 1.5em;
-    text-align: right;
-    border-top: 2px dashed $light1;
-  }
+.card-body {
+  align-content: end;
+  gap: 0.5rem;
+}
+
+.card-body,
+.card-footer {
+  border-top: 2px dashed $light1;
+}
+
+.card label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+}
