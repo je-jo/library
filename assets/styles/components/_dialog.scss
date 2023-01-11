@@ -1,6 +1,6 @@
 dialog {
     margin: auto;
-    border-radius: $border-radius / 2;
+    border-radius: calc($border-radius / 2);
     border: 1px solid $accent;
 }
 

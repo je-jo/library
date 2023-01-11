@@ -2,6 +2,10 @@
 // This file contains all styles related to the button component.
 // -----------------------------------------------------------------------------
 
+/// Set base button colors
+$button-bg-color: $white;
+$button-text-color: $dark2;
+
 button {
     display: inline-flex;
     align-items: center;
@@ -9,19 +13,27 @@ button {
     justify-content: center;
     min-width: 10ch;
     min-height: 44px;
-    padding: 0.2em 0.9em;
+    padding: 0.1em 0.8em;
     transition: $transition;
     border: 2px solid currentColor;
     border-radius: $border-radius;
-    background-color: $white;
-    color: $dark2;
-    font-size: 1.125rem;
+    background-color: $button-bg-color;
+    color: $button-text-color;
+    // font-size: 1.125rem;
     line-height: 1.1;
     text-align: center;
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
-    &:hover, &:focus {
-        background-color: $yellow;
+    &.btn--delete {
+        $button-text-color: $accent;
+    }
+    &:hover,
+    &:focus {
+        $button-bg-color: $dark2;
+        $button-text-color: $white;
+        background-color: $button-bg-color;
+        color: $button-text-color;
+        border-color: $button-bg-color;
     }
 }

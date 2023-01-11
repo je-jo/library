@@ -139,11 +139,6 @@ h1 {
 h2 {
   font-size: 1.8rem;
   font-size: min(max(1.5rem, 3vw), 1.8rem);
-  margin: 0.65rem 0;
-}
-
-p, label {
-  font-size: 1.15rem;
 }
 
 .wrapper {
@@ -190,9 +185,9 @@ footer {
 
 .card {
   display: grid;
-  grid-template-rows: 1fr 1fr auto;
+  grid-template-rows: 1fr auto auto;
   gap: 1rem;
-  padding: 1rem;
+  padding: 2rem 1rem 0.5rem;
   min-height: 25rem;
   border-radius: 8px;
   background-color: hsl(0deg, 0%, 100%);
@@ -202,25 +197,27 @@ footer {
 .card-header,
 .card-body {
   display: grid;
+  gap: 0.5rem;
 }
 
 .card-header {
-  align-content: space-between;
+  align-content: start;
 }
 
 .card-body {
   align-content: end;
-  gap: 0.5rem;
 }
 
 .card-body,
 .card-footer {
+  padding-top: 1.5rem;
   border-top: 2px dashed #e8eadc;
 }
 
 .card label {
   display: grid;
   grid-template-columns: auto 1fr;
+  align-items: center;
   gap: 0.5rem;
 }
 
@@ -231,13 +228,12 @@ button {
   justify-content: center;
   min-width: 10ch;
   min-height: 44px;
-  padding: 0.2em 0.9em;
+  padding: 0.1em 0.8em;
   transition: ease all 0.2s;
   border: 2px solid currentColor;
   border-radius: 8px;
   background-color: hsl(0deg, 0%, 100%);
   color: hsl(308deg, 13%, 23%);
-  font-size: 1.125rem;
   line-height: 1.1;
   text-align: center;
   text-transform: uppercase;
@@ -245,7 +241,9 @@ button {
   cursor: pointer;
 }
 button:hover, button:focus {
-  background-color: hsl(45deg, 99%, 55%);
+  background-color: hsl(308deg, 13%, 23%);
+  color: hsl(0deg, 0%, 100%);
+  border-color: hsl(308deg, 13%, 23%);
 }
 
 dialog {

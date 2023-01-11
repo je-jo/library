@@ -16,9 +16,8 @@ h1 {
 h2 {
   font-size: $fs-h2;
   font-size: min(max(1.5rem, 3vw), $fs-h2);
-  margin: 0.65rem 0;
 }
 
 p, label {
-  font-size: $fs-text;
+  // font-size: $fs-text;
 }

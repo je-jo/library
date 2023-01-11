@@ -9,9 +9,9 @@
 
 .card {
   display: grid;
-  grid-template-rows: 1fr 1fr auto;
+  grid-template-rows: 1fr auto auto;
   gap: 1rem;
-  padding: 1rem;
+  padding: 2rem 1rem 0.5rem;
   min-height: 25rem;
   border-radius: $border-radius;
   background-color: $white;
@@ -21,24 +21,26 @@
 .card-header,
 .card-body {
 display: grid;
+gap: 0.5rem;
 }
 
 .card-header {
-  align-content: space-between;
+  align-content: start;
 }
 
 .card-body {
   align-content: end;
-  gap: 0.5rem;
-}
+} 
 
 .card-body,
 .card-footer {
+  padding-top: 1.5rem;
   border-top: 2px dashed $light1;
 }
 
 .card label {
   display: grid;
   grid-template-columns: auto 1fr;
+  align-items: center;
   gap: 0.5rem;
 }
