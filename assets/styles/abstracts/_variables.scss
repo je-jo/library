@@ -54,10 +54,11 @@ $fs-lead: 1.125rem;
 
 
 ///Design variables
-$min-card-width: 18rem;
+$min-card-width: 16rem;
 $border-radius: 8px;
 $transition: ease all 0.2s;
 $box-shadow: 0 3px 5px change-color($dark1, $alpha: 0.28);
+$box-shadow-status: $box-shadow, inset 3px 0px 0px 0px $red;
 
 
 /// Breakpoints map

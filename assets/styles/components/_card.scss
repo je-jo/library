@@ -11,7 +11,7 @@
   min-height: 25rem;
   border-radius: $border-radius;
   background-color: $white;
-  box-shadow: $box-shadow;
+  box-shadow: $box-shadow-status;
 }
 
 .card-header,
@@ -39,4 +39,18 @@ gap: 0.5rem;
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 0.5rem;
+}
+
+.card[data-read="true"] {
+  $box-shadow-status: $box-shadow, inset 3px 0px 0px 0px $green;
+  box-shadow: $box-shadow-status;
+}
+
+.card:not([data-returned="true"]) {
+  outline: 1px solid $light2;
+}
+
+.card[data-returned="true"] {
+  color:$dark3;
+  background-color: change-color($white, $alpha: 0.5);
 }
