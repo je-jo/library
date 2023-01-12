@@ -2,14 +2,17 @@ const myLibrary = [];
 const displayLibrary = document.getElementById("library");
 
 const btnCreate = document.getElementById("btn-create");
+const btnCancelCreate = document.getElementById("cancel-create");
 
-const form = document.getElementById("form-add");
+const formAdd = document.getElementById("form-add");
 const inputTitle = document.getElementById("input-title");
 const inputAuthor = document.getElementById("input-author");
 const inputPages = document.getElementById("input-pages");
 const inputDate = document.getElementById("input-date");
 
 const template = document.getElementById("card-template");
+
+const dialogAdd = document.getElementById("dialog-add");
 
 const dialogDelete = document.getElementById("dialog-delete");
 const dialogDeleteText = document.getElementById("dialog-text");
@@ -39,7 +42,7 @@ function addBookToLibrary(book) {
 }
 
 Book.prototype.setId = function setId() {
-  this.id = Date.now() + myLibrary.indexOf(this);
+  this.id = Date.now() + Math.random(1000);
 };
 
 Book.prototype.toggleStatus = function toggleStatus(key, checked) {
@@ -71,7 +74,7 @@ Book.prototype.createCard = function createCard() {
   const cardPages = card.querySelector(".card-pages");
   cardPages.textContent = `${this.pages} pages.`;
   const cardDate = card.querySelector(".card-date");
-  cardDate.textContent = `Return by: ${formatDate(this.date)}.`;
+  cardDate.textContent = `\xa0\xa0${formatDate(this.date)}.\xa0\xa0`; // Non-breakable space added
   const cardReadCheckbox = card.querySelector(".card-read-checkbox");
   const cardReadLabel = card.querySelector(".card-read-label");
   const cardReturnedCheckbox = card.querySelector(".card-returned-checkbox");
@@ -117,9 +120,12 @@ dialogConfirmDelete.addEventListener("click", () => {
 });
 
 btnCreate.addEventListener("click", () => {
-  form.style.display = "block";
-  btnCreate.style.display = "none";
+  dialogAdd.showModal();
 });
+
+btnCancelCreate.addEventListener("click", () => {
+  dialogAdd.close();
+})
 
 function createBook(e) {
   const tempBook = new Book(
@@ -135,13 +141,12 @@ function createBook(e) {
   }
   addBookToLibrary(tempBook);
   tempBook.createCard();
-  form.style.display = "none";
-  btnCreate.style.display = "block";
-  form.reset();
+  formAdd.reset();
   e.preventDefault();
+  dialogAdd.close();
 }
 
-form.addEventListener("submit", createBook);
+formAdd.addEventListener("submit", createBook);
 
 // temporary manually added books, free to delete later:
 

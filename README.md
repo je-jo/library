@@ -57,6 +57,7 @@ The "dialog" element is used instead of confirm prompt for deletion.
 - [HTML / Sass Jumpstart]() - Mostly plucked some sensible values (font sizes, spacings, etc) from here.
 - [google web fonts helper](https://gwfh.mranftl.com/fonts) - A Hassle-Free Way to Self-Host Google Fonts.
 - [Introducing the Dialog Element](https://webkit.org/blog/12209/introducing-the-dialog-element/).
+- [Custom CSS Styles for Form Inputs and Textareas](https://moderncss.dev/custom-css-styles-for-form-inputs-and-textareas/)
 
 ## Author
 

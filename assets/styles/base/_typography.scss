@@ -18,6 +18,17 @@ h2 {
   font-size: min(max(1.5rem, 3vw), $fs-h2);
 }
 
-p, label {
-  // font-size: $fs-text;
+p.card-author {
+  font-style: italic;
+}
+
+span.card-date {
+  font-family: $serif-stack;
+  font-size: $fs-lead;
+  letter-spacing: 2px;
+  text-decoration: underline;
+  text-decoration-thickness: 12px;
+  text-underline-offset: -6px;
+  text-decoration-color: change-color($accent, $alpha: 0.2);
+  text-decoration-skip-ink: none;
 }

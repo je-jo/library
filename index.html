@@ -24,21 +24,28 @@
       <div class="wrapper wrapper--button">
         <button id="btn-create">New book</button>
       </div>
-      <form id="form-add">
-        <label for="input-title"
-          >Title: <input type="text" id="input-title" required
-        /></label>
-        <label for="input-author"
-          >Author: <input type="text" id="input-author" required
-        /></label>
-        <label for="input-pages"
-          >Pages: <input type="number" id="input-pages"
-        /></label>
-        <label for="input-date"
-          >Return by: <input type="date" id="input-date"
-        /></label>
-        <button type="submit">Add book</button>
-      </form>
+      <dialog id="dialog-add">
+        <div class="dialog-body">
+          <form id="form-add">
+            <label for="input-title"
+              >Title: <input type="text" id="input-title" required
+            /></label>
+            <label for="input-author"
+              >Author: <input type="text" id="input-author" required
+            /></label>
+            <label for="input-pages"
+              >Pages: <input type="number" id="input-pages"
+            /></label>
+            <label for="input-date"
+              >Return by: <input type="date" id="input-date"
+            /></label>
+            <div class="wrapper wrapper--button">
+              <button type="button" id="cancel-create">Cancel</button>
+              <button type="submit">Add book</button>
+            </div>
+          </form>
+        </div>
+      </dialog>
       <ul id="library"></ul>
     </main>
 
@@ -63,7 +70,7 @@
           <p class="card-pages"></p>
         </div>
         <div class="card-body">
-          <p class="card-date"></p>
+          <p>Return by: <span class="card-date"></span></p>
           <label for="card-read" class="card-read-label"
             ><input
               type="checkbox"
@@ -85,6 +92,9 @@
         </div>
       </li>
     </template>
+
+   
+
 
     <dialog id="dialog-delete">
       <div class="dialog-body">

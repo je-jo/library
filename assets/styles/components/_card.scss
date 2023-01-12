@@ -3,15 +3,11 @@
 // -----------------------------------------------------------------------------
 
 
-#form-add {
-  display: none;
-}
-
 .card {
   display: grid;
   grid-template-rows: 1fr auto auto;
   gap: 1rem;
-  padding: 2rem 1rem 0.5rem;
+  padding: 2rem 1.5rem 0.5rem;
   min-height: 25rem;
   border-radius: $border-radius;
   background-color: $white;

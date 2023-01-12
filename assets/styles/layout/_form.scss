@@ -1,0 +1,25 @@
+form {
+    display: grid;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+input {
+    padding: 0.25em 0.5em; 
+    line-height: 1;
+    background-color: change-color($light1, $alpha: 0.4);
+    border: 1px solid $text-color;
+    border-radius: calc($border-radius / 2);
+    accent-color: $dark2;
+}
+
+input:not([type="checkbox"]) {
+        min-width: 25vw;
+        height: 2.25rem;
+}
+
+label {
+    display: grid;
+    gap: 0.5rem;
+}

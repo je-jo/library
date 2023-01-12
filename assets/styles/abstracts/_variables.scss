@@ -50,9 +50,11 @@ $white: hsl(0, 0%, 100%);
 /// Font sizes
 $fs-h1:  4rem;
 $fs-h2: 1.8rem;
+$fs-lead: 1.125rem;
 
 
 ///Design variables
+$min-card-width: 18rem;
 $border-radius: 8px;
 $transition: ease all 0.2s;
 $box-shadow: 0 3px 5px change-color($dark1, $alpha: 0.28);

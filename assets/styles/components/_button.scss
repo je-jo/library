@@ -4,7 +4,7 @@
 
 /// Set base button colors
 $button-bg-color: $white;
-$button-text-color: $dark2;
+$button-text-color: $dark1;
 
 button {
     display: inline-flex;
@@ -15,11 +15,10 @@ button {
     min-height: 44px;
     padding: 0.1em 0.8em;
     transition: $transition;
-    border: 2px solid currentColor;
+    border: 1px solid currentColor;
     border-radius: $border-radius;
     background-color: $button-bg-color;
     color: $button-text-color;
-    // font-size: 1.125rem;
     line-height: 1.1;
     text-align: center;
     text-transform: uppercase;

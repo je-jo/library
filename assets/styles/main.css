@@ -95,7 +95,6 @@ body {
   display: grid;
   grid-template-rows: auto 1fr auto;
   background-color: #e8eadc;
-  background-image: linear-gradient(180deg, hsl(69deg, 28%, 95%) 0%, hsl(66deg, 26%, 93%) 21%, hsl(65deg, 23%, 90%) 30%, hsl(60deg, 21%, 87%) 39%, hsl(60deg, 18%, 84%) 46%, hsl(52deg, 16%, 82%) 54%, hsl(55deg, 12%, 79%) 61%, hsl(51deg, 11%, 76%) 69%, hsl(48deg, 7%, 74%) 79%, hsl(45deg, 5%, 71%) 100%);
   color: rgb(47, 30, 46);
 }
 
@@ -141,6 +140,23 @@ h2 {
   font-size: min(max(1.5rem, 3vw), 1.8rem);
 }
 
+p.card-author {
+  font-style: italic;
+}
+
+span.card-date {
+  font-family: "Bitter", serif;
+  font-size: 1.125rem;
+  letter-spacing: 2px;
+  text-decoration: underline;
+  text-decoration-thickness: 12px;
+  text-underline-offset: -6px;
+  -webkit-text-decoration-color: rgba(239, 100, 87, 0.2);
+          text-decoration-color: rgba(239, 100, 87, 0.2);
+  -webkit-text-decoration-skip-ink: none;
+          text-decoration-skip-ink: none;
+}
+
 .wrapper {
   width: min(100%, 150ch);
   margin: 0 auto;
@@ -171,6 +187,32 @@ footer {
   text-align: center;
 }
 
+form {
+  display: grid;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+input {
+  padding: 0.25em 0.5em;
+  line-height: 1;
+  background-color: rgba(232, 234, 220, 0.4);
+  border: 1px solid rgb(47, 30, 46);
+  border-radius: 4px;
+  accent-color: hsl(308deg, 13%, 23%);
+}
+
+input:not([type=checkbox]) {
+  min-width: 25vw;
+  height: 2.25rem;
+}
+
+label {
+  display: grid;
+  gap: 0.5rem;
+}
+
 #library {
   list-style: none;
   display: grid;
@@ -179,15 +221,11 @@ footer {
   gap: 2rem;
 }
 
-#form-add {
-  display: none;
-}
-
 .card {
   display: grid;
   grid-template-rows: 1fr auto auto;
   gap: 1rem;
-  padding: 2rem 1rem 0.5rem;
+  padding: 2rem 1.5rem 0.5rem;
   min-height: 25rem;
   border-radius: 8px;
   background-color: hsl(0deg, 0%, 100%);
@@ -230,10 +268,10 @@ button {
   min-height: 44px;
   padding: 0.1em 0.8em;
   transition: ease all 0.2s;
-  border: 2px solid currentColor;
+  border: 1px solid currentColor;
   border-radius: 8px;
   background-color: hsl(0deg, 0%, 100%);
-  color: hsl(308deg, 13%, 23%);
+  color: rgb(47, 30, 46);
   line-height: 1.1;
   text-align: center;
   text-transform: uppercase;
@@ -248,8 +286,8 @@ button:hover, button:focus {
 
 dialog {
   margin: auto;
+  border: 2px solid #e8eadc;
   border-radius: 4px;
-  border: 1px solid hsl(5deg, 83%, 64%);
 }
 
 .dialog-body {
@@ -261,9 +299,13 @@ dialog {
 }
 
 dialog::-webkit-backdrop {
-  background: rgba(66, 51, 64, 0.5);
+  background: rgba(66, 51, 64, 0.6);
+  -webkit-backdrop-filter: blur(1px);
+          backdrop-filter: blur(1px);
 }
 
 dialog::backdrop {
-  background: rgba(66, 51, 64, 0.5);
+  background: rgba(66, 51, 64, 0.6);
+  -webkit-backdrop-filter: blur(1px);
+          backdrop-filter: blur(1px);
 }/*# sourceMappingURL=main.css.map */
