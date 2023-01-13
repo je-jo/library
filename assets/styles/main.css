@@ -79,7 +79,7 @@ select {
 }
 .color-invert {
   background-color: rgb(47, 30, 46);
-  color: #e8eadc;
+  color: hsl(69deg, 25%, 89%);
 }
 
 * {
@@ -94,7 +94,7 @@ select {
 body {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  background-color: #e8eadc;
+  background-color: hsl(69deg, 25%, 89%);
   color: rgb(47, 30, 46);
 }
 
@@ -148,6 +148,9 @@ span.card-date {
   font-family: "Bitter", serif;
   font-size: 1.125rem;
   letter-spacing: 2px;
+}
+
+.card:not([data-returned=true]) span.card-date {
   text-decoration: underline;
   text-decoration-thickness: 12px;
   text-underline-offset: -6px;
@@ -200,7 +203,7 @@ input {
   background-color: rgba(232, 234, 220, 0.4);
   border: 1px solid rgb(47, 30, 46);
   border-radius: 4px;
-  accent-color: hsl(308deg, 13%, 23%);
+  accent-color: hsl(314deg, 9%, 28%);
 }
 
 input:not([type=checkbox]) {
@@ -229,7 +232,8 @@ label {
   min-height: 25rem;
   border-radius: 8px;
   background-color: hsl(0deg, 0%, 100%);
-  box-shadow: 0 3px 5px rgba(47, 30, 46, 0.28), inset 3px 0px 0px 0px hsl(5deg, 83%, 64%);
+  box-shadow: 0 3px 5px rgba(47, 30, 46, 0.28), inset 2.6666666667px 0px 0px 0px hsl(5deg, 83%, 64%);
+  transition: ease background-color 0.2s;
 }
 
 .card-header,
@@ -249,7 +253,7 @@ label {
 .card-body,
 .card-footer {
   padding-top: 1.5rem;
-  border-top: 2px dashed #e8eadc;
+  border-top: 2px dashed hsl(69deg, 25%, 89%);
 }
 
 .card label {
@@ -260,7 +264,7 @@ label {
 }
 
 .card[data-read=true] {
-  box-shadow: 0 3px 5px rgba(47, 30, 46, 0.28), inset 3px 0px 0px 0px hsl(153deg, 43%, 50%);
+  box-shadow: 0 3px 5px rgba(47, 30, 46, 0.28), inset 2.6666666667px 0px 0px 0px hsl(153deg, 43%, 50%);
 }
 
 .card:not([data-returned=true]) {
@@ -296,10 +300,16 @@ button:hover, button:focus {
   color: hsl(0deg, 0%, 100%);
   border-color: hsl(308deg, 13%, 23%);
 }
+button.btn-create {
+  font-size: 1.125rem;
+  padding: 1.3em;
+  font-weight: 700;
+  border-width: 2px;
+}
 
 dialog {
   margin: auto;
-  border: 2px solid #e8eadc;
+  border: 2px solid hsl(69deg, 25%, 89%);
   border-radius: 4px;
 }
 

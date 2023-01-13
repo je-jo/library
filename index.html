@@ -4,10 +4,24 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A small book management app to keep track of your borrowed books.">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
-    <meta name="theme-color" content="#2f1e2e">
-    <link rel="preload" href="assets/fonts/bitter-v32-latin-ext_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <meta
+      name="description"
+      content="A small book management app to keep track of your borrowed books."
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/images/favicon-32x32.png"
+    />
+    <meta name="theme-color" content="#2f1e2e" />
+    <link
+      rel="preload"
+      href="assets/fonts/bitter-v32-latin-ext_latin-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="stylesheet" href="assets/styles/main.css" />
     <script src="assets/js/script.js" defer></script>
     <title>Library - The Odin Project</title>
@@ -22,8 +36,9 @@
 
     <main class="wrapper">
       <div class="wrapper wrapper--button">
-        <button id="btn-create">New book</button>
+        <button id="btn-create" class="btn-create">Add new book</button>
       </div>
+      <!-- The hidden add book form -->
       <dialog id="dialog-add">
         <div class="dialog-body">
           <form id="form-add">
@@ -42,6 +57,29 @@
             <div class="wrapper wrapper--button">
               <button type="button" id="cancel-create">Cancel</button>
               <button type="submit">Add book</button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+      <!-- The hidden edit book form -->
+      <dialog id="dialog-edit">
+        <div class="dialog-body">
+          <form id="form-edit">
+            <label for="edit-title"
+              >Title: <input type="text" id="edit-title" required
+            /></label>
+            <label for="edit-author"
+              >Author: <input type="text" id="edit-author" required
+            /></label>
+            <label for="edit-pages"
+              >Pages: <input type="number" id="edit-pages"
+            /></label>
+            <label for="edit-date"
+              >Return by: <input type="date" id="edit-date"
+            /></label>
+            <div class="wrapper wrapper--button">
+              <button type="button" id="cancel-edit">Cancel</button>
+              <button type="submit">Edit book</button>
             </div>
           </form>
         </div>
@@ -93,9 +131,6 @@
       </li>
     </template>
 
-   
-
-
     <dialog id="dialog-delete">
       <div class="dialog-body">
         <p id="dialog-text"></p>
@@ -105,6 +140,5 @@
         </div>
       </div>
     </dialog>
-    
   </body>
 </html>

@@ -11,7 +11,7 @@ input {
     background-color: change-color($light1, $alpha: 0.4);
     border: 1px solid $text-color;
     border-radius: calc($border-radius / 2);
-    accent-color: $dark2;
+    accent-color: $dark3;
 }
 
 input:not([type="checkbox"]) {

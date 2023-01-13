@@ -24,9 +24,11 @@ button {
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
+
     &.btn--delete {
         $button-text-color: $accent;
     }
+
     &:hover,
     &:focus {
         $button-bg-color: $dark2;
@@ -34,5 +36,12 @@ button {
         background-color: $button-bg-color;
         color: $button-text-color;
         border-color: $button-bg-color;
+    }
+
+    &.btn-create {
+        font-size: $fs-lead;
+        padding: 1.3em;
+        font-weight: 700;
+        border-width: 2px;
     }
 }

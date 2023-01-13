@@ -26,6 +26,10 @@ span.card-date {
   font-family: $serif-stack;
   font-size: $fs-lead;
   letter-spacing: 2px;
+  
+}
+
+.card:not([data-returned="true"]) span.card-date {
   text-decoration: underline;
   text-decoration-thickness: 12px;
   text-underline-offset: -6px;
