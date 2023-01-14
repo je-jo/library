@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------------------
 
 /// Set base button colors
-$button-bg-color: $white;
+$button-bg-color: transparent;
 $button-text-color: $dark1;
 
 button {
@@ -25,10 +25,13 @@ button {
     text-decoration: none;
     cursor: pointer;
 
-    &.btn--delete {
-        $button-text-color: $accent;
+    &.btn-create {
+        font-size: $fs-lead;
+        padding: 1.3em;
+        font-weight: 700;
+        border-width: 2px;
+        background-color: $white;
     }
-
     &:hover,
     &:focus {
         $button-bg-color: $dark2;
@@ -36,12 +39,5 @@ button {
         background-color: $button-bg-color;
         color: $button-text-color;
         border-color: $button-bg-color;
-    }
-
-    &.btn-create {
-        font-size: $fs-lead;
-        padding: 1.3em;
-        font-weight: 700;
-        border-width: 2px;
     }
 }

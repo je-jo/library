@@ -13,6 +13,7 @@ A Library app to keep track of borrowed books. Built using JavaScript, HTML, and
 - [My process](#my-process)
   - [Built with](#built-with)
   - [The process](#the-process)
+  - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
 
@@ -49,6 +50,11 @@ This project uses templating method (the HTML "template" element) to clone a "ca
 
 The "dialog" element is used instead of confirm prompt for deletion.
 
+### Continued Development
+
+- [ ] Add storage;
+- [ ] Check due dates against current date;
+
 ### Useful resources
 
 - [How To Lint and Format Code with ESLint in Visual Studio Code](https://www.digitalocean.com/community/tutorials/linting-and-formatting-with-eslint-in-vs-code) - A tutorial for setting up ESLint for a project.
@@ -58,6 +64,7 @@ The "dialog" element is used instead of confirm prompt for deletion.
 - [google web fonts helper](https://gwfh.mranftl.com/fonts) - A Hassle-Free Way to Self-Host Google Fonts.
 - [Introducing the Dialog Element](https://webkit.org/blog/12209/introducing-the-dialog-element/).
 - [Custom CSS Styles for Form Inputs and Textareas](https://moderncss.dev/custom-css-styles-for-form-inputs-and-textareas/)
+- [Favicon Generator](https://favicon.io/favicon-generator/);
 
 ## Author
 

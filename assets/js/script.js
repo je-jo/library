@@ -1,18 +1,29 @@
+/* main global variables */
+
 const myLibrary = [];
 const displayLibrary = document.getElementById("library");
 
-const btnCreate = document.getElementById("btn-create");
-const btnCancelCreate = document.getElementById("cancel-create");
-
-const formAdd = document.getElementById("form-add");
-const inputTitle = document.getElementById("input-title");
-const inputAuthor = document.getElementById("input-author");
-const inputPages = document.getElementById("input-pages");
-const inputDate = document.getElementById("input-date");
-
-const dialogAdd = document.getElementById("dialog-add");
-
 const template = document.getElementById("card-template");
+
+/* helper functions */
+
+function formatDate(date) {
+  return date.toLocaleString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+function updateCard(card, obj) {
+  const cardToUpdate = card; // no-param-reasign
+  cardToUpdate.querySelector(".card-title").textContent = obj.title;
+  cardToUpdate.querySelector(".card-author").textContent = `by ${obj.author};`;
+  cardToUpdate.querySelector(".card-pages").textContent = `${obj.pages} pages.`;
+  cardToUpdate.querySelector(".card-date").textContent = `\xa0\xa0${formatDate(obj.date)}.\xa0`;
+} 
+
+/* delete a book object and card */
 
 const dialogDelete = document.getElementById("dialog-delete");
 const dialogDeleteText = document.getElementById("dialog-text");
@@ -20,7 +31,19 @@ const dialogCancelDelete = document.getElementById("cancel-delete");
 const dialogConfirmDelete = document.getElementById("confirm-delete");
 
 let indexOfItemToDelete; // values set when clicking on card's delete button
-let nodeToDelete;
+let cardToDelete;
+
+dialogCancelDelete.addEventListener("click", () => {
+  dialogDelete.close();
+});
+
+dialogConfirmDelete.addEventListener("click", () => {
+  myLibrary.splice(indexOfItemToDelete, 1);
+  cardToDelete.remove();
+  dialogDelete.close();
+});
+
+/* edit a book object and card */
 
 const formEdit = document.getElementById("form-edit");
 const editTitle = document.getElementById("edit-title");
@@ -31,42 +54,25 @@ const editDate = document.getElementById("edit-date");
 const dialogEdit = document.getElementById("dialog-edit");
 const dialogCancelEdit = document.getElementById("cancel-edit");
 
-let bookObjToEditId;
-let nodeToEdit;
-let editedTitle;
-let editedAuthor;
-let editedPages;
-let editedDate;
-
-function formatDate(date) {
-  return date.toLocaleString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
+let bookObjToEditId; // values set when clicking on card's edit button
+let cardToEdit;
 
 formEdit.addEventListener("submit", (e) => {
 myLibrary.forEach(book => {
     if (bookObjToEditId === book.id) {
-      editedTitle = editTitle.value;
-      editedAuthor= editAuthor.value;
-      editedPages = Number(editPages.value);
-      if (editDate.value) {
-        editedDate = new Date(editDate.value);
-      } else {
-        editedDate = "No date set";
-      }
       book.editBook();
+      updateCard(cardToEdit, book);
     }
   });
-  nodeToEdit.querySelector(".card-title").textContent = editedTitle;
-  nodeToEdit.querySelector(".card-author").textContent = `by ${editedAuthor};`;
-  nodeToEdit.querySelector(".card-pages").textContent = `${editedPages} pages.`;
-  nodeToEdit.querySelector(".card-date").textContent = `\xa0\xa0${formatDate(editedDate)}.\xa0`;
   e.preventDefault();
   dialogEdit.close();
 });
+
+dialogCancelEdit.addEventListener("click", () => {
+  dialogEdit.close();
+});
+
+/* book object manipulation */
 
 function Book(title, author, pages, date) {
   this.title = title;
@@ -83,13 +89,6 @@ Book.prototype.setId = function setId() {
   this.id = Date.now() + Math.random(1000);
 };
 
-Book.prototype.editBook = function editBook() {
-  this.title = editedTitle;
-  this.author = editedAuthor;
-  this.pages = editedPages;
-  this.date = editedDate;
-}
-
 Book.prototype.toggleStatus = function toggleStatus(key, checked) {
   this[key] = !!checked; // if checkbox checked, set value of object's key to true
 };
@@ -101,38 +100,38 @@ Book.prototype.updateLabelText = function updateLabelText(prop) {
   return `Not ${prop} yet.`;
 };
 
-Book.prototype.setDate = function setDate(e) {
-  return e.currentTarget.value;
-};
+Book.prototype.editBook = function editBook() {
+  this.title = editTitle.value;
+  this.author = editAuthor.value;
+  this.pages = Number(editPages.value);
+  editDate.value ? this.date = new Date(editDate.value) : this.date = "No date set";
+}
+
+/* book card */
 
 Book.prototype.createCard = function createCard() {
   this.setId();
   const card = template.content.cloneNode(true); // created from template as a #document-fragment and not node, must be defined as node to manipulate.
-  const cardTitle = card.querySelector(".card-title");
-  const cardReference = cardTitle.parentNode.parentNode;
+  const cardReference = card.children[0];
+  // Child of a doc fragment is an actual node. 
+  // The usual node methods (setAttribute(), remove()...) won't work on a #document-fragment.
   cardReference.setAttribute("id", this.id);
-  // Children of doc fragments are actual nodes. To reference doc fragment as a node, it can be defined as a parent of it's child (grandparent in this case).
-  // Otherwise, the usual node methods (setAttribute(), remove()...) won't work.
-  const cardAuthor = card.querySelector(".card-author");
-  const cardPages = card.querySelector(".card-pages");
-  const cardDate = card.querySelector(".card-date");
+
   const cardReadCheckbox = card.querySelector(".card-read-checkbox");
   const cardReadLabel = card.querySelector(".card-read-label");
   cardReadLabel.setAttribute("for", `card-read-${this.id}`);
   cardReadCheckbox.setAttribute("id", cardReadLabel.getAttribute("for")); // checkbox and label must have matching and unique ids and fors
+  
   const cardReturnedCheckbox = card.querySelector(".card-returned-checkbox");
   const cardReturnedLabel = card.querySelector(".card-returned-label");
   cardReturnedLabel.setAttribute("for", `card-returned-${this.id}`);
   cardReturnedCheckbox.setAttribute("id", cardReturnedLabel.getAttribute("for"));
+  
   const cardEdit = card.querySelector(".card-edit");
   const cardDelete = card.querySelector(".card-delete");
-  
-  cardTitle.textContent = this.title;
-  cardAuthor.textContent = `by ${this.author};`;
-  cardPages.textContent = `${this.pages} pages.`;
-  cardDate.textContent = `\xa0\xa0${formatDate(this.date)}.\xa0`; // Non-breakable space added
 
   displayLibrary.insertBefore(card, displayLibrary.firstChild); // add new books to top
+  updateCard(cardReference, this);
 
   cardReadCheckbox.addEventListener("change", () => {
     this.toggleStatus("read", cardReadCheckbox.checked);
@@ -149,7 +148,7 @@ Book.prototype.createCard = function createCard() {
 
   cardEdit.addEventListener("click", () => {
     bookObjToEditId = this.id;
-    nodeToEdit = cardReference;
+    cardToEdit = cardReference;
     dialogEdit.showModal();
     editTitle.value = this.title;
     editAuthor.value = this.author;
@@ -160,25 +159,22 @@ Book.prototype.createCard = function createCard() {
   cardDelete.addEventListener("click", () => {
     dialogDeleteText.textContent = `Are you sure you want to remove "${this.title}"?`;
     indexOfItemToDelete = myLibrary.indexOf(this);
-    nodeToDelete = cardReference;
+    cardToDelete = cardReference;
     dialogDelete.showModal();
   });
 };
 
+/* create new book */
 
-dialogCancelEdit.addEventListener("click", () => {
-  dialogEdit.close();
-});
+const btnCreate = document.getElementById("btn-create");
+const btnCancelCreate = document.getElementById("cancel-create");
 
-dialogCancelDelete.addEventListener("click", () => {
-  dialogDelete.close();
-});
-
-dialogConfirmDelete.addEventListener("click", () => {
-  myLibrary.splice(indexOfItemToDelete, 1);
-  nodeToDelete.remove();
-  dialogDelete.close();
-});
+const dialogAdd = document.getElementById("dialog-add");
+const formAdd = document.getElementById("form-add");
+const inputTitle = document.getElementById("input-title");
+const inputAuthor = document.getElementById("input-author");
+const inputPages = document.getElementById("input-pages");
+const inputDate = document.getElementById("input-date");
 
 btnCreate.addEventListener("click", () => {
   dialogAdd.showModal();
@@ -188,7 +184,6 @@ btnCancelCreate.addEventListener("click", () => {
   dialogAdd.close();
 });
 
-
 function createBook(e) {
   const tempBook = new Book(
     inputTitle.value,
@@ -196,11 +191,7 @@ function createBook(e) {
     Number(inputPages.value),
     inputDate.value
   );
-  if (inputDate.value) {
-    tempBook.date = new Date(inputDate.value);
-  } else {
-    tempBook.date = "No date set";
-  }
+  inputDate.value ? tempBook.date = new Date(inputDate.value) : tempBook.date = "No date set";
   addBookToLibrary(tempBook);
   tempBook.createCard();
   formAdd.reset();
@@ -212,81 +203,62 @@ formAdd.addEventListener("submit", createBook);
 
 
 
-// temporary manually added books, free to delete later:
 
-const kockar = new Book(
-  "Kockar",
-  "F. M. Dostojevski",
+
+// temporary manually added example books, free to delete later:
+
+const doneWithThisBook = new Book(
+  "Done with this book",
+  "Jeremy Toogood",
   186,
   new Date("2022-12-23")
 );
-const priceIzSume = new Book(
-  "Priče iz šume",
-  "Nikoleta Novak",
+const aReturnedUnreadBook = new Book(
+  "A returned unread book",
+  "Harold Larch",
   146,
-  new Date("2022-12-23")
+  new Date("2022-12-31")
 );
-const vragolaniIDzangrizala = new Book(
-  "Vragolani i džangrizala",
-  "Toni Vulf",
+const aBookThatIsRead = new Book(
+  "A book that is read",
+  "Ernest Scribbler",
   44,
-  new Date("2022-12-23")
+  new Date("2023-01-23")
 );
-const glineniUdar = new Book(
-  "Glineni udar",
-  "Donald Lemke",
+const newBookToStart = new Book(
+  "Newly added books go front",
+  "Raymond Luxury-Yacht",
   41,
-  new Date("2022-12-23")
-);
-const idiot = new Book(
-  "Idiot",
-  "F. M. Dostojevski",
-  681,
-  new Date("2022-12-23")
-);
-const desetLjutihGusara = new Book(
-  "Deset Ljutih Gusara",
-  "Ljubivoje Ršumović",
-  30,
-  new Date("2023-01-17")
-);
-const najgoriUciteljiNaSvetu = new Book(
-  "Najgori učitelji na svetu",
-  "Dejvid Valijams",
-  304,
-  new Date("2023-01-17")
-);
-const priceSaImanja = new Book(
-  "Priče sa imanja",
-  "Paskal Veder d'Orija, Pjer Kuron",
-  112,
-  new Date("2023-01-17")
+  new Date("2023-01-23")
 );
 
-addBookToLibrary(kockar);
-addBookToLibrary(priceIzSume);
-addBookToLibrary(vragolaniIDzangrizala);
-addBookToLibrary(glineniUdar);
-addBookToLibrary(idiot);
-addBookToLibrary(desetLjutihGusara);
-addBookToLibrary(najgoriUciteljiNaSvetu);
-addBookToLibrary(priceSaImanja);
 
-kockar.createCard();
-priceIzSume.createCard();
-vragolaniIDzangrizala.createCard();
-glineniUdar.createCard();
-idiot.createCard();
-desetLjutihGusara.createCard();
-najgoriUciteljiNaSvetu.createCard();
-priceSaImanja.createCard();
+addBookToLibrary(doneWithThisBook);
+addBookToLibrary(aReturnedUnreadBook);
+addBookToLibrary(aBookThatIsRead);
+addBookToLibrary(newBookToStart);
+
+doneWithThisBook.createCard();
+doneWithThisBook.toggleStatus("read", true);
+doneWithThisBook.toggleStatus("returned", true);
+displayLibrary.children[0].querySelector(".card-read-checkbox").checked = true;
+displayLibrary.children[0].querySelector(".card-returned-checkbox").checked = true;
+displayLibrary.children[0].dataset.read = doneWithThisBook.read;
+displayLibrary.children[0].dataset.returned = doneWithThisBook.returned;
+displayLibrary.children[0].querySelector(".card-read-label").childNodes[1].textContent = doneWithThisBook.updateLabelText("read");
+displayLibrary.children[0].querySelector(".card-returned-label").childNodes[1].textContent = doneWithThisBook.updateLabelText("returned");
+
+aReturnedUnreadBook.createCard();
+aReturnedUnreadBook.toggleStatus("returned", true);
+displayLibrary.children[0].querySelector(".card-returned-checkbox").checked = true;
+displayLibrary.children[0].dataset.returned = aReturnedUnreadBook.returned;
+displayLibrary.children[0].querySelector(".card-returned-label").childNodes[1].textContent = aReturnedUnreadBook.updateLabelText("returned");
+
+aBookThatIsRead.createCard();
+aBookThatIsRead.toggleStatus("read", true);
+displayLibrary.children[0].querySelector(".card-read-checkbox").checked = true;
+displayLibrary.children[0].dataset.read = aBookThatIsRead.read;
+displayLibrary.children[0].querySelector(".card-read-label").childNodes[1].textContent = aBookThatIsRead.updateLabelText("read");
+newBookToStart.createCard();
 
 // end temporary
-
-// example book
-
-/* const desetLjutihGusara = new Book("Deset Ljutih Gusara", "Ljubivoje Ršumović", 30, new Date("2023-01-17"));
-addBookToLibrary(desetLjutihGusara);
-desetLjutihGusara.toggleStatus("read");
-desetLjutihGusara.toggleStatus("returned");
-desetLjutihGusara.createCard(); */

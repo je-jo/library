@@ -11,6 +11,7 @@ h2 {
 h1 {
   font-size: $fs-h1;
   font-size: min(max(3rem, 5vw), $fs-h1);
+  text-align: center;
 }
 
 h2 {

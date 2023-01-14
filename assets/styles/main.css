@@ -77,17 +77,12 @@ select {
     scroll-behavior: initial;
   }
 }
-.color-invert {
-  background-color: rgb(47, 30, 46);
-  color: hsl(69deg, 25%, 89%);
-}
-
 * {
   margin: 0;
   padding: 0;
 }
 *:focus-visible {
-  outline: 3px dotted hsl(5deg, 83%, 64%);
+  outline: 3px dotted hsl(177deg, 47%, 56%);
   outline-offset: 3px;
 }
 
@@ -98,6 +93,11 @@ body {
   color: rgb(47, 30, 46);
 }
 
+.color-invert {
+  background-color: rgb(47, 30, 46);
+  color: hsl(69deg, 25%, 89%);
+}
+
 /**
  * Basic styles for links
  */
@@ -106,7 +106,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: hsl(45deg, 99%, 55%);
+  color: hsl(177deg, 47%, 56%);
   text-decoration: underline;
   text-underline-offset: 6px;
   transition: ease all 0.2s;
@@ -133,6 +133,7 @@ h2 {
 h1 {
   font-size: 4rem;
   font-size: min(max(3rem, 5vw), 4rem);
+  text-align: center;
 }
 
 h2 {
@@ -154,8 +155,8 @@ span.card-date {
   text-decoration: underline;
   text-decoration-thickness: 12px;
   text-underline-offset: -6px;
-  -webkit-text-decoration-color: rgba(239, 100, 87, 0.2);
-          text-decoration-color: rgba(239, 100, 87, 0.2);
+  -webkit-text-decoration-color: rgba(90, 196, 190, 0.2);
+          text-decoration-color: rgba(90, 196, 190, 0.2);
   -webkit-text-decoration-skip-ink: none;
           text-decoration-skip-ink: none;
 }
@@ -287,7 +288,7 @@ button {
   transition: ease all 0.2s;
   border: 1px solid currentColor;
   border-radius: 8px;
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: transparent;
   color: rgb(47, 30, 46);
   line-height: 1.1;
   text-align: center;
@@ -295,22 +296,24 @@ button {
   text-decoration: none;
   cursor: pointer;
 }
-button:hover, button:focus {
-  background-color: hsl(308deg, 13%, 23%);
-  color: hsl(0deg, 0%, 100%);
-  border-color: hsl(308deg, 13%, 23%);
-}
 button.btn-create {
   font-size: 1.125rem;
   padding: 1.3em;
   font-weight: 700;
   border-width: 2px;
+  background-color: hsl(0deg, 0%, 100%);
+}
+button:hover, button:focus {
+  background-color: hsl(308deg, 13%, 23%);
+  color: hsl(0deg, 0%, 100%);
+  border-color: hsl(308deg, 13%, 23%);
 }
 
 dialog {
   margin: auto;
   border: 2px solid hsl(69deg, 25%, 89%);
   border-radius: 4px;
+  transition: ease all 0.2s;
 }
 
 .dialog-body {
@@ -322,13 +325,9 @@ dialog {
 }
 
 dialog::-webkit-backdrop {
-  background: rgba(66, 51, 64, 0.6);
-  -webkit-backdrop-filter: blur(1px);
-          backdrop-filter: blur(1px);
+  background: rgba(66, 51, 64, 0.8);
 }
 
 dialog::backdrop {
-  background: rgba(66, 51, 64, 0.6);
-  -webkit-backdrop-filter: blur(1px);
-          backdrop-filter: blur(1px);
+  background: rgba(66, 51, 64, 0.8);
 }/*# sourceMappingURL=main.css.map */

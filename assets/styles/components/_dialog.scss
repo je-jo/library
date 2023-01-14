@@ -2,6 +2,7 @@ dialog {
     margin: auto;
     border: 2px solid $bg-color;
     border-radius: calc($border-radius / 2);
+    transition: $transition;
 }
 
 .dialog-body {
@@ -13,6 +14,5 @@ dialog {
 }
 
 dialog::backdrop {
-    background: change-color($dark2, $alpha: 0.6);
-    backdrop-filter: blur(1px);
+    background: change-color($dark2, $alpha: 0.8);
 }
