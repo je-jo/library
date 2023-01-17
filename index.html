@@ -46,7 +46,7 @@
               >Title: <input type="text" id="input-title" required
             /></label>
             <label for="input-author"
-              >Author: <input type="text" id="input-author" required
+              >Author: <input type="text" id="input-author"
             /></label>
             <label for="input-pages"
               >Pages: <input type="number" id="input-pages"
@@ -69,7 +69,7 @@
               >Title: <input type="text" id="edit-title" required
             /></label>
             <label for="edit-author"
-              >Author: <input type="text" id="edit-author" required
+              >Author: <input type="text" id="edit-author"
             /></label>
             <label for="edit-pages"
               >Pages: <input type="number" id="edit-pages"
@@ -103,7 +103,10 @@
     <template id="card-template">
       <li class="card">
         <div class="card-header">
-          <h2 class="card-title"></h2>
+          <h2 class="card-title-container">
+            <span class="quotes quotes--open">&ldquo;</span><span class="card-title"></span
+            ><span class="quotes quotes--closed">&rdquo;</span>
+          </h2>
           <p class="card-author"></p>
           <p class="card-pages"></p>
         </div>

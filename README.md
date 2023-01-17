@@ -54,17 +54,19 @@ The "dialog" element is used instead of confirm prompt for deletion.
 
 - [ ] Add storage;
 - [ ] Check due dates against current date;
+- [ ] Add filters and pagination, maybe search;
+- [ ] Add animations;
 
 ### Useful resources
 
 - [How To Lint and Format Code with ESLint in Visual Studio Code](https://www.digitalocean.com/community/tutorials/linting-and-formatting-with-eslint-in-vs-code) - A tutorial for setting up ESLint for a project.
 - [Templating in HTML](https://kittygiraudel.com/2022/09/30/templating-in-html/) - "Long story short, templates are good to avoid creating complex DOM structures by hand."
 - [7-1 pattern boilerplate](https://github.com/KittyGiraudel/sass-boilerplate/tree/master/stylesheets) - A boilerplate for 7-1 Sass Architecture.
-- [HTML / Sass Jumpstart]() - Mostly plucked some sensible values (font sizes, spacings, etc) from here.
+- [HTML / Sass Jumpstart]() - Mostly plucked some sensible values (font sizes, spacings, buttons, etc) from here and a reset file.
 - [google web fonts helper](https://gwfh.mranftl.com/fonts) - A Hassle-Free Way to Self-Host Google Fonts.
-- [Introducing the Dialog Element](https://webkit.org/blog/12209/introducing-the-dialog-element/).
+- [Introducing the Dialog Element](https://webkit.org/blog/12209/introducing-the-dialog-element/)
 - [Custom CSS Styles for Form Inputs and Textareas](https://moderncss.dev/custom-css-styles-for-form-inputs-and-textareas/)
-- [Favicon Generator](https://favicon.io/favicon-generator/);
+- [Favicon Generator](https://favicon.io/favicon-generator/)
 
 ## Author
 

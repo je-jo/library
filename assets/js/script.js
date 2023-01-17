@@ -1,11 +1,21 @@
-/* main global variables */
+/*
+01 - main global variables
+02 - helper functions
+03 - delete a book object and card
+04 - edit a book object and card
+05 - book object manipulation
+06 - create book card, set up buttons and checkboxes
+07 - create new book
+*/
+
+/* 01 - main global variables */
 
 const myLibrary = [];
 const displayLibrary = document.getElementById("library");
 
 const template = document.getElementById("card-template");
 
-/* helper functions */
+/* 02 - helper functions */
 
 function formatDate(date) {
   return date.toLocaleString("en-US", {
@@ -18,12 +28,12 @@ function formatDate(date) {
 function updateCard(card, obj) {
   const cardToUpdate = card; // no-param-reasign
   cardToUpdate.querySelector(".card-title").textContent = obj.title;
-  cardToUpdate.querySelector(".card-author").textContent = `by ${obj.author};`;
-  cardToUpdate.querySelector(".card-pages").textContent = `${obj.pages} pages.`;
-  cardToUpdate.querySelector(".card-date").textContent = `\xa0\xa0${formatDate(obj.date)}.\xa0`;
+  cardToUpdate.querySelector(".card-author").textContent = obj.author ? `by ${obj.author};` : `by Unknown Author;`;
+  cardToUpdate.querySelector(".card-pages").textContent = obj.pages === 1 ? `${obj.pages} page.` : `${obj.pages} pages.`
+  cardToUpdate.querySelector(".card-date").textContent = `\xa0\xa0${formatDate(obj.date)}.\xa0`; // add white space around
 } 
 
-/* delete a book object and card */
+/* 03 - delete a book object and card */
 
 const dialogDelete = document.getElementById("dialog-delete");
 const dialogDeleteText = document.getElementById("dialog-text");
@@ -43,7 +53,7 @@ dialogConfirmDelete.addEventListener("click", () => {
   dialogDelete.close();
 });
 
-/* edit a book object and card */
+/* 04 - edit a book object and card */
 
 const formEdit = document.getElementById("form-edit");
 const editTitle = document.getElementById("edit-title");
@@ -72,7 +82,7 @@ dialogCancelEdit.addEventListener("click", () => {
   dialogEdit.close();
 });
 
-/* book object manipulation */
+/* 05 - book object manipulation */
 
 function Book(title, author, pages, date) {
   this.title = title;
@@ -107,7 +117,7 @@ Book.prototype.editBook = function editBook() {
   editDate.value ? this.date = new Date(editDate.value) : this.date = "No date set";
 }
 
-/* book card */
+/* 06 - create book card, set up buttons and checkboxes */
 
 Book.prototype.createCard = function createCard() {
   this.setId();
@@ -164,7 +174,7 @@ Book.prototype.createCard = function createCard() {
   });
 };
 
-/* create new book */
+/* 07 - create new book */
 
 const btnCreate = document.getElementById("btn-create");
 const btnCancelCreate = document.getElementById("cancel-create");
@@ -225,6 +235,26 @@ const aBookThatIsRead = new Book(
   44,
   new Date("2023-01-23")
 );
+const longTitleAndAuthor = new Book(
+  "A book written by people with very long names, and whose title also just goes on and on and on and on and on and on and on and on and on and on",
+  "Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso, Hubert Blaine Wolfeschlegelsteinhausenbergerdorff Sr.",
+  1,
+  new Date("2023-01-23")
+);
+const longTitle = new Book(
+  "A book with a two line title",
+  "Hubert Blaine Wolfeschlegelsteinhausenbergerdorff Sr.",
+  1,
+  new Date("2023-01-23")
+);
+const supercalifragilisticexpialidocious = new Book(
+  "Supercalifragilisticexpialidocious",
+  "Mary Poppins", -12, new Date("2023-01-23")
+);
+const short = new Book(
+  "Short",
+  "", 1, new Date("2023-01-23")
+)
 const newBookToStart = new Book(
   "Newly added books go front",
   "Raymond Luxury-Yacht",
@@ -236,6 +266,10 @@ const newBookToStart = new Book(
 addBookToLibrary(doneWithThisBook);
 addBookToLibrary(aReturnedUnreadBook);
 addBookToLibrary(aBookThatIsRead);
+addBookToLibrary(longTitleAndAuthor);
+addBookToLibrary(longTitle);
+addBookToLibrary(supercalifragilisticexpialidocious);
+addBookToLibrary(short);
 addBookToLibrary(newBookToStart);
 
 doneWithThisBook.createCard();
@@ -259,6 +293,11 @@ aBookThatIsRead.toggleStatus("read", true);
 displayLibrary.children[0].querySelector(".card-read-checkbox").checked = true;
 displayLibrary.children[0].dataset.read = aBookThatIsRead.read;
 displayLibrary.children[0].querySelector(".card-read-label").childNodes[1].textContent = aBookThatIsRead.updateLabelText("read");
+
+supercalifragilisticexpialidocious.createCard();
+longTitle.createCard();
+longTitleAndAuthor.createCard();
+short.createCard();
 newBookToStart.createCard();
 
 // end temporary

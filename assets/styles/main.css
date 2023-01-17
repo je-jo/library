@@ -82,7 +82,7 @@ select {
   padding: 0;
 }
 *:focus-visible {
-  outline: 3px dotted hsl(177deg, 47%, 56%);
+  outline: 3px dotted hsl(35deg, 95%, 53%);
   outline-offset: 3px;
 }
 
@@ -106,7 +106,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: hsl(177deg, 47%, 56%);
+  color: hsl(35deg, 95%, 53%);
   text-decoration: underline;
   text-underline-offset: 6px;
   transition: ease all 0.2s;
@@ -141,30 +141,10 @@ h2 {
   font-size: min(max(1.5rem, 3vw), 1.8rem);
 }
 
-p.card-author {
-  font-style: italic;
-}
-
-span.card-date {
-  font-family: "Bitter", serif;
-  font-size: 1.125rem;
-  letter-spacing: 2px;
-}
-
-.card:not([data-returned=true]) span.card-date {
-  text-decoration: underline;
-  text-decoration-thickness: 12px;
-  text-underline-offset: -6px;
-  -webkit-text-decoration-color: rgba(90, 196, 190, 0.2);
-          text-decoration-color: rgba(90, 196, 190, 0.2);
-  -webkit-text-decoration-skip-ink: none;
-          text-decoration-skip-ink: none;
-}
-
 .wrapper {
   width: min(100%, 150ch);
   margin: 0 auto;
-  padding: 5vh clamp(1rem, 5vw, 3rem) 1rem;
+  padding: 5vh clamp(0.3rem, 3vw, 3rem) 1rem;
 }
 
 .wrapper--button {
@@ -207,6 +187,10 @@ input {
   accent-color: hsl(314deg, 9%, 28%);
 }
 
+input[type=date] {
+  width: 100%;
+}
+
 input:not([type=checkbox]) {
   min-width: 25vw;
   height: 2.25rem;
@@ -220,7 +204,7 @@ label {
 #library {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
   padding: 3rem 0;
   gap: 2rem;
 }
@@ -229,7 +213,7 @@ label {
   display: grid;
   grid-template-rows: 1fr auto auto;
   gap: 1rem;
-  padding: 2rem 1.5rem 0.5rem;
+  padding: 2rem 1.8rem 0.5rem;
   min-height: 25rem;
   border-radius: 8px;
   background-color: hsl(0deg, 0%, 100%);
@@ -262,6 +246,55 @@ label {
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 0.5rem;
+}
+
+h2, p.card-author {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+span.card-title {
+  position: relative;
+  z-index: 10;
+}
+
+span.quotes {
+  position: absolute;
+  font-size: 2.5em;
+  color: rgba(249, 154, 21, 0.2);
+}
+
+span.quotes--open {
+  margin-top: -0.1em;
+  margin-left: -0.25em;
+}
+
+span.quotes--closed {
+  margin-left: -0.15em;
+  margin-top: 0.15em;
+}
+
+p.card-author {
+  font-style: italic;
+}
+
+span.card-date {
+  font-family: "Bitter", serif;
+  font-size: 1.125rem;
+  letter-spacing: 2px;
+}
+
+.card:not([data-returned=true]) span.card-date {
+  text-decoration: underline;
+  text-decoration-thickness: 12px;
+  text-underline-offset: -6px;
+  -webkit-text-decoration-color: rgba(249, 154, 21, 0.2);
+          text-decoration-color: rgba(249, 154, 21, 0.2);
+  -webkit-text-decoration-skip-ink: none;
+          text-decoration-skip-ink: none;
 }
 
 .card[data-read=true] {
