@@ -11,7 +11,6 @@ $accent: $orange;
 * {
   margin: 0;
   padding: 0;
-  // outline: 1px solid salmon;
   &:focus-visible {
     outline: 3px dotted $accent;
     outline-offset: 3px;
@@ -32,7 +31,6 @@ body {
   background-color: $bg-color;
   color: $text-color;
 }
-
 
 /**
  * Basic styles for links

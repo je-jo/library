@@ -1,147 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="A small book management app to keep track of your borrowed books."
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="assets/images/favicon-32x32.png"
-    />
-    <meta name="theme-color" content="#2f1e2e" />
-    <link
-      rel="preload"
-      href="assets/fonts/bitter-v32-latin-ext_latin-regular.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link rel="stylesheet" href="assets/styles/main.css" />
-    <script src="assets/js/script.js" defer></script>
-    <title>Library - The Odin Project</title>
-  </head>
 
-  <body>
-    <header class="color-invert">
-      <div class="wrapper">
-        <h1>Library Book Tracker</h1>
-      </div>
-    </header>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A small book management app to keep track of your borrowed books.">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  <meta name="theme-color" content="#2f1e2e">
+  <link rel="preload" href="assets/fonts/bitter-v32-latin-ext_latin-regular.woff2" as="font" type="font/woff2"
+    crossorigin>
+  <link rel="stylesheet" href="assets/styles/main.css">
+  <script src="assets/js/script.js" defer></script>
+  <title>Library - The Odin Project</title>
+</head>
 
-    <main class="wrapper">
-      <div class="wrapper wrapper--button">
-        <button id="btn-create" class="btn-create">Add new book</button>
-      </div>
-      <!-- The hidden add book form -->
-      <dialog id="dialog-add">
-        <div class="dialog-body">
-          <form id="form-add">
-            <label for="input-title"
-              >Title: <input type="text" id="input-title" required
-            /></label>
-            <label for="input-author"
-              >Author: <input type="text" id="input-author"
-            /></label>
-            <label for="input-pages"
-              >Pages: <input type="number" id="input-pages"
-            /></label>
-            <label for="input-date"
-              >Return by: <input type="date" id="input-date"
-            /></label>
-            <div class="wrapper wrapper--button">
-              <button type="button" id="cancel-create">Cancel</button>
-              <button type="submit">Add book</button>
-            </div>
-          </form>
-        </div>
-      </dialog>
-      <!-- The hidden edit book form -->
-      <dialog id="dialog-edit">
-        <div class="dialog-body">
-          <form id="form-edit">
-            <label for="edit-title"
-              >Title: <input type="text" id="edit-title" required
-            /></label>
-            <label for="edit-author"
-              >Author: <input type="text" id="edit-author"
-            /></label>
-            <label for="edit-pages"
-              >Pages: <input type="number" id="edit-pages"
-            /></label>
-            <label for="edit-date"
-              >Return by: <input type="date" id="edit-date"
-            /></label>
-            <div class="wrapper wrapper--button">
-              <button type="button" id="cancel-edit">Cancel</button>
-              <button type="submit">Edit book</button>
-            </div>
-          </form>
-        </div>
-      </dialog>
-      <ul id="library"></ul>
-    </main>
+<body>
+  <header class="color-invert">
+    <div class="wrapper">
+      <h1>Library Book Tracker</h1>
+    </div>
+  </header>
 
-    <footer class="color-invert">
-      <p>
-        <small>
-          Coded and designed by
-          <a href="https://github.com/je-jo" target="_blank">Jelena Jovicic</a>
-          for
-          <a href="https://www.theodinproject.com/" target="_blank"
-            >The Odin Project</a
-          >, 2023.
-        </small>
-      </p>
-    </footer>
-
-    <template id="card-template">
-      <li class="card">
-        <div class="card-header">
-          <h2 class="card-title-container">
-            <span class="quotes quotes--open">&ldquo;</span><span class="card-title"></span
-            ><span class="quotes quotes--closed">&rdquo;</span>
-          </h2>
-          <p class="card-author"></p>
-          <p class="card-pages"></p>
-        </div>
-        <div class="card-body">
-          <p>Return by: <span class="card-date"></span></p>
-          <label for="card-read" class="card-read-label"
-            ><input
-              type="checkbox"
-              id="card-read"
-              class="card-read-checkbox"
-            />Not read yet.</label
-          >
-          <label for="card-returned" class="card-returned-label"
-            ><input
-              type="checkbox"
-              id="card-returned"
-              class="card-returned-checkbox"
-            />Not returned yet.</label
-          >
-        </div>
-        <div class="card-footer wrapper wrapper--button">
-          <button class="card-edit">Edit</button>
-          <button class="card-delete">Delete</button>
-        </div>
-      </li>
-    </template>
-
-    <dialog id="dialog-delete">
+  <main class="wrapper">
+    <div class="wrapper wrapper--button">
+      <button id="btn-create" class="btn-create">Add new book</button>
+    </div>
+    <!-- The hidden add book form -->
+    <dialog id="dialog-add">
       <div class="dialog-body">
-        <p id="dialog-text"></p>
-        <div class="wrapper wrapper--button">
-          <button id="cancel-delete" value="cancel">Cancel</button>
-          <button id="confirm-delete" value="default">Delete</button>
-        </div>
+        <form id="form-add">
+          <label for="input-title">Title: <input type="text" id="input-title" maxlength="140" required></label>
+          <label for="input-author">Author: <input type="text" id="input-author" maxlength="140"></label>
+          <label for="input-pages">Pages: <input type="number" id="input-pages" min="0"></label>
+          <label for="input-date">Return by: <input type="date" id="input-date"></label>
+          <div class="wrapper wrapper--button">
+            <button type="button" id="cancel-create">Cancel</button>
+            <button type="submit">Add book</button>
+          </div>
+        </form>
       </div>
     </dialog>
-  </body>
+    <!-- The hidden edit book form -->
+    <dialog id="dialog-edit">
+      <div class="dialog-body">
+        <form id="form-edit">
+          <label for="edit-title">Title: <input type="text" id="edit-title" maxlength="140" required></label>
+          <label for="edit-author">Author: <input type="text" id="edit-author" maxlength="140"></label>
+          <label for="edit-pages">Pages: <input type="number" id="edit-pages" min="0"></label>
+          <label for="edit-date">Return by: <input type="date" id="edit-date"></label>
+          <div class="wrapper wrapper--button">
+            <button type="button" id="cancel-edit">Cancel</button>
+            <button type="submit">Edit book</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <ul id="library"></ul>
+
+  </main>
+
+  <footer class="color-invert">
+    <p>
+      <small>
+        Coded and designed by
+        <a href="https://github.com/je-jo" target="_blank">Jelena Jovicic</a> for <a
+          href="https://www.theodinproject.com/" target="_blank">The Odin Project</a>, 2023.
+      </small>
+    </p>
+  </footer>
+
+  <!-- the card template -->
+  <template id="card-template">
+    <li class="card">
+      <div class="card-header">
+        <h2 class="card-title"></h2>
+        <p class="card-author"></p>
+        <p class="card-pages"></p>
+      </div>
+      <div class="card-body">
+        <p>Return by: <span class="card-date"></span></p>
+        <label for="card-read" class="card-read-label"><input type="checkbox" id="card-read"
+            class="card-read-checkbox">Not read yet.</label>
+        <label for="card-returned" class="card-returned-label"><input type="checkbox" id="card-returned"
+            class="card-returned-checkbox">Not returned yet.</label>
+      </div>
+      <div class="card-footer wrapper wrapper--button">
+        <button type="button" class="card-edit">Edit</button>
+        <button type="button" class="card-delete">Delete</button>
+      </div>
+    </li>
+  </template>
+
+  <!-- delete dialog -->
+  <dialog id="dialog-delete">
+    <div class="dialog-body">
+      <p id="dialog-text"></p>
+      <div class="wrapper wrapper--button">
+        <button id="cancel-delete" type="button">Cancel</button>
+        <button id="confirm-delete" type="button">Delete</button>
+      </div>
+    </div>
+  </dialog>
+</body>
+
 </html>

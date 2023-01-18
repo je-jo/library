@@ -1,5 +1,3 @@
-WIP
-
 # The Odin Project - Library
 
 A Library app to keep track of borrowed books. Built using JavaScript, HTML, and Sass for [The Odin Project](https://www.theodinproject.com).

@@ -27,11 +27,16 @@ function formatDate(date) {
 
 function updateCard(card, obj) {
   const cardToUpdate = card; // no-param-reasign
-  cardToUpdate.querySelector(".card-title").textContent = obj.title;
-  cardToUpdate.querySelector(".card-author").textContent = obj.author ? `by ${obj.author};` : `by Unknown Author;`;
-  cardToUpdate.querySelector(".card-pages").textContent = obj.pages === 1 ? `${obj.pages} page.` : `${obj.pages} pages.`
+  cardToUpdate.querySelector(".card-title").textContent = `	“${obj.title}”`;
+  cardToUpdate.querySelector(".card-author").textContent = obj.author
+    ? `by ${obj.author};`
+    : `by Unknown Author;`;
+  cardToUpdate.querySelector(".card-pages").textContent =
+    obj.pages === 1 
+    ? `${obj.pages} page.` 
+    : `${obj.pages} pages.`;
   cardToUpdate.querySelector(".card-date").textContent = `\xa0\xa0${formatDate(obj.date)}.\xa0`; // add white space around
-} 
+}
 
 /* 03 - delete a book object and card */
 
@@ -64,21 +69,18 @@ const editDate = document.getElementById("edit-date");
 const dialogEdit = document.getElementById("dialog-edit");
 const dialogCancelEdit = document.getElementById("cancel-edit");
 
-let bookObjToEditId; // values set when clicking on card's edit button
+let indexOfItemToEdit;// values set when clicking on card's edit button
 let cardToEdit;
 
-formEdit.addEventListener("submit", (e) => {
-myLibrary.forEach(book => {
-    if (bookObjToEditId === book.id) {
-      book.editBook();
-      updateCard(cardToEdit, book);
-    }
-  });
-  e.preventDefault();
+dialogCancelEdit.addEventListener("click", () => {
   dialogEdit.close();
 });
 
-dialogCancelEdit.addEventListener("click", () => {
+formEdit.addEventListener("submit", (e) => {
+  const bookToEdit = myLibrary[indexOfItemToEdit];
+  bookToEdit.editBook();
+  updateCard(cardToEdit, bookToEdit);
+  e.preventDefault();
   dialogEdit.close();
 });
 
@@ -114,8 +116,10 @@ Book.prototype.editBook = function editBook() {
   this.title = editTitle.value;
   this.author = editAuthor.value;
   this.pages = Number(editPages.value);
-  editDate.value ? this.date = new Date(editDate.value) : this.date = "No date set";
-}
+  editDate.value
+    ? (this.date = new Date(editDate.value))
+    : (this.date = "No date set");
+};
 
 /* 06 - create book card, set up buttons and checkboxes */
 
@@ -123,7 +127,7 @@ Book.prototype.createCard = function createCard() {
   this.setId();
   const card = template.content.cloneNode(true); // created from template as a #document-fragment and not node, must be defined as node to manipulate.
   const cardReference = card.children[0];
-  // Child of a doc fragment is an actual node. 
+  // Child of a doc fragment is an actual node.
   // The usual node methods (setAttribute(), remove()...) won't work on a #document-fragment.
   cardReference.setAttribute("id", this.id);
 
@@ -131,12 +135,13 @@ Book.prototype.createCard = function createCard() {
   const cardReadLabel = card.querySelector(".card-read-label");
   cardReadLabel.setAttribute("for", `card-read-${this.id}`);
   cardReadCheckbox.setAttribute("id", cardReadLabel.getAttribute("for")); // checkbox and label must have matching and unique ids and fors
-  
+
   const cardReturnedCheckbox = card.querySelector(".card-returned-checkbox");
   const cardReturnedLabel = card.querySelector(".card-returned-label");
   cardReturnedLabel.setAttribute("for", `card-returned-${this.id}`);
-  cardReturnedCheckbox.setAttribute("id", cardReturnedLabel.getAttribute("for"));
-  
+  cardReturnedCheckbox.setAttribute("id", cardReturnedLabel.getAttribute("for")
+  );
+
   const cardEdit = card.querySelector(".card-edit");
   const cardDelete = card.querySelector(".card-delete");
 
@@ -157,7 +162,7 @@ Book.prototype.createCard = function createCard() {
   });
 
   cardEdit.addEventListener("click", () => {
-    bookObjToEditId = this.id;
+    indexOfItemToEdit = myLibrary.indexOf(this);
     cardToEdit = cardReference;
     dialogEdit.showModal();
     editTitle.value = this.title;
@@ -167,7 +172,7 @@ Book.prototype.createCard = function createCard() {
   });
 
   cardDelete.addEventListener("click", () => {
-    dialogDeleteText.textContent = `Are you sure you want to remove "${this.title}"?`;
+    dialogDeleteText.textContent = `Are you sure you want to remove “${this.title}”?`;
     indexOfItemToDelete = myLibrary.indexOf(this);
     cardToDelete = cardReference;
     dialogDelete.showModal();
@@ -201,7 +206,9 @@ function createBook(e) {
     Number(inputPages.value),
     inputDate.value
   );
-  inputDate.value ? tempBook.date = new Date(inputDate.value) : tempBook.date = "No date set";
+  inputDate.value
+    ? (tempBook.date = new Date(inputDate.value))
+    : (tempBook.date = "No date set");
   addBookToLibrary(tempBook);
   tempBook.createCard();
   formAdd.reset();
@@ -210,10 +217,6 @@ function createBook(e) {
 }
 
 formAdd.addEventListener("submit", createBook);
-
-
-
-
 
 // temporary manually added example books, free to delete later:
 
@@ -241,20 +244,6 @@ const longTitleAndAuthor = new Book(
   1,
   new Date("2023-01-23")
 );
-const longTitle = new Book(
-  "A book with a two line title",
-  "Hubert Blaine Wolfeschlegelsteinhausenbergerdorff Sr.",
-  1,
-  new Date("2023-01-23")
-);
-const supercalifragilisticexpialidocious = new Book(
-  "Supercalifragilisticexpialidocious",
-  "Mary Poppins", -12, new Date("2023-01-23")
-);
-const short = new Book(
-  "Short",
-  "", 1, new Date("2023-01-23")
-)
 const newBookToStart = new Book(
   "Newly added books go front",
   "Raymond Luxury-Yacht",
@@ -262,42 +251,48 @@ const newBookToStart = new Book(
   new Date("2023-01-23")
 );
 
-
 addBookToLibrary(doneWithThisBook);
 addBookToLibrary(aReturnedUnreadBook);
 addBookToLibrary(aBookThatIsRead);
 addBookToLibrary(longTitleAndAuthor);
-addBookToLibrary(longTitle);
-addBookToLibrary(supercalifragilisticexpialidocious);
-addBookToLibrary(short);
 addBookToLibrary(newBookToStart);
 
 doneWithThisBook.createCard();
 doneWithThisBook.toggleStatus("read", true);
 doneWithThisBook.toggleStatus("returned", true);
 displayLibrary.children[0].querySelector(".card-read-checkbox").checked = true;
-displayLibrary.children[0].querySelector(".card-returned-checkbox").checked = true;
+displayLibrary.children[0].querySelector(
+  ".card-returned-checkbox"
+).checked = true;
 displayLibrary.children[0].dataset.read = doneWithThisBook.read;
 displayLibrary.children[0].dataset.returned = doneWithThisBook.returned;
-displayLibrary.children[0].querySelector(".card-read-label").childNodes[1].textContent = doneWithThisBook.updateLabelText("read");
-displayLibrary.children[0].querySelector(".card-returned-label").childNodes[1].textContent = doneWithThisBook.updateLabelText("returned");
+displayLibrary.children[0].querySelector(
+  ".card-read-label"
+).childNodes[1].textContent = doneWithThisBook.updateLabelText("read");
+displayLibrary.children[0].querySelector(
+  ".card-returned-label"
+).childNodes[1].textContent = doneWithThisBook.updateLabelText("returned");
 
 aReturnedUnreadBook.createCard();
 aReturnedUnreadBook.toggleStatus("returned", true);
-displayLibrary.children[0].querySelector(".card-returned-checkbox").checked = true;
+displayLibrary.children[0].querySelector(
+  ".card-returned-checkbox"
+).checked = true;
 displayLibrary.children[0].dataset.returned = aReturnedUnreadBook.returned;
-displayLibrary.children[0].querySelector(".card-returned-label").childNodes[1].textContent = aReturnedUnreadBook.updateLabelText("returned");
+displayLibrary.children[0].querySelector(
+  ".card-returned-label"
+).childNodes[1].textContent = aReturnedUnreadBook.updateLabelText("returned");
 
 aBookThatIsRead.createCard();
 aBookThatIsRead.toggleStatus("read", true);
 displayLibrary.children[0].querySelector(".card-read-checkbox").checked = true;
 displayLibrary.children[0].dataset.read = aBookThatIsRead.read;
-displayLibrary.children[0].querySelector(".card-read-label").childNodes[1].textContent = aBookThatIsRead.updateLabelText("read");
+displayLibrary.children[0].querySelector(
+  ".card-read-label"
+).childNodes[1].textContent = aBookThatIsRead.updateLabelText("read");
 
-supercalifragilisticexpialidocious.createCard();
-longTitle.createCard();
+
 longTitleAndAuthor.createCard();
-short.createCard();
 newBookToStart.createCard();
 
 // end temporary

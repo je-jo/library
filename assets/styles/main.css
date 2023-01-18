@@ -126,7 +126,7 @@ a:hover {
  */
 h1,
 h2 {
-  font-family: "Bitter", serif;
+  font-family: "Bitter", "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville, "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif;
   line-height: 1.15;
 }
 
@@ -176,11 +176,13 @@ form {
   justify-content: center;
   gap: 1.5rem;
   padding: 1rem;
+  color: rgb(47, 30, 46);
 }
 
 input {
   padding: 0.25em 0.5em;
   line-height: 1;
+  color: inherit;
   background-color: rgba(232, 234, 220, 0.4);
   border: 1px solid rgb(47, 30, 46);
   border-radius: 4px;
@@ -201,6 +203,16 @@ label {
   gap: 0.5rem;
 }
 
+.card label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.5rem;
+}
+.card label:hover {
+  filter: drop-shadow(0 0 6px rgba(249, 154, 21, 0.5));
+}
+
 #library {
   list-style: none;
   display: grid;
@@ -215,8 +227,8 @@ label {
   gap: 1rem;
   padding: 2rem 1.8rem 0.5rem;
   min-height: 25rem;
-  border-radius: 8px;
   background-color: hsl(0deg, 0%, 100%);
+  border-radius: 8px;
   box-shadow: 0 3px 5px rgba(47, 30, 46, 0.28), inset 2.6666666667px 0px 0px 0px hsl(5deg, 83%, 64%);
   transition: ease background-color 0.2s;
 }
@@ -241,14 +253,8 @@ label {
   border-top: 2px dashed hsl(69deg, 25%, 89%);
 }
 
-.card label {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-h2, p.card-author {
+h2,
+p.card-author {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -256,37 +262,23 @@ h2, p.card-author {
   text-overflow: ellipsis;
 }
 
-span.card-title {
-  position: relative;
-  z-index: 10;
-}
-
-span.quotes {
-  position: absolute;
-  font-size: 2.5em;
-  color: rgba(249, 154, 21, 0.2);
-}
-
-span.quotes--open {
-  margin-top: -0.1em;
-  margin-left: -0.25em;
-}
-
-span.quotes--closed {
-  margin-left: -0.15em;
-  margin-top: 0.15em;
-}
-
 p.card-author {
   font-style: italic;
 }
 
 span.card-date {
-  font-family: "Bitter", serif;
+  font-family: "Bitter", "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville, "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif;
   font-size: 1.125rem;
-  letter-spacing: 2px;
 }
 
+.card[data-returned=true] {
+  color: hsl(314deg, 9%, 28%);
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.card:not([data-returned=true]) {
+  outline: 1px solid hsl(40deg, 6%, 71%);
+}
 .card:not([data-returned=true]) span.card-date {
   text-decoration: underline;
   text-decoration-thickness: 12px;
@@ -299,15 +291,6 @@ span.card-date {
 
 .card[data-read=true] {
   box-shadow: 0 3px 5px rgba(47, 30, 46, 0.28), inset 2.6666666667px 0px 0px 0px hsl(153deg, 43%, 50%);
-}
-
-.card:not([data-returned=true]) {
-  outline: 1px solid hsl(40deg, 6%, 71%);
-}
-
-.card[data-returned=true] {
-  color: hsl(314deg, 9%, 28%);
-  background-color: rgba(255, 255, 255, 0.5);
 }
 
 button {
@@ -344,7 +327,7 @@ button:hover, button:focus {
 
 dialog {
   margin: auto;
-  border: 2px solid hsl(69deg, 25%, 89%);
+  border: 1px solid hsl(69deg, 25%, 89%);
   border-radius: 4px;
   transition: ease all 0.2s;
 }

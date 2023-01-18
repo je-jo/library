@@ -3,11 +3,13 @@ form {
     justify-content: center;
     gap: 1.5rem;
     padding: 1rem;
+    color: $dark1;
 }
 
 input {
-    padding: 0.25em 0.5em; 
+    padding: 0.25em 0.5em;
     line-height: 1;
+    color: inherit;
     background-color: change-color($light1, $alpha: 0.4);
     border: 1px solid $text-color;
     border-radius: calc($border-radius / 2);
@@ -19,11 +21,22 @@ input[type="date"] {
 }
 
 input:not([type="checkbox"]) {
-        min-width: 25vw;
-        height: 2.25rem;
+    min-width: 25vw;
+    height: 2.25rem;
 }
 
 label {
     display: grid;
     gap: 0.5rem;
+}
+
+.card label { // label:has(input[type="checkbox"]) when better supported
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:hover {
+        filter: drop-shadow(0 0 6px change-color($accent, $alpha: 0.5));
+    }
 }
