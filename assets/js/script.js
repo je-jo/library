@@ -6,11 +6,32 @@
 05 - book object manipulation
 06 - create book card, set up buttons and checkboxes
 07 - create new book
+08 - local storage
 */
 
 /* 01 - main global variables */
 
-const myLibrary = [];
+/* let myLibrary = [
+  {
+    title: "Other",
+    author: "The others",
+    pages: 1,
+    date: "2022-01-01"
+  },
+  {
+    title: "Newly added up front",
+    author: "Raymond",
+    pages: 2,
+    date: new Date("2023-01-23"),
+  } 
+]; */
+
+let myLibrary = [];
+
+const saveLocal = () => {
+  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+}
+
 const displayLibrary = document.getElementById("library");
 
 const template = document.getElementById("card-template");
@@ -18,7 +39,7 @@ const template = document.getElementById("card-template");
 /* 02 - helper functions */
 
 function formatDate(date) {
-  return date.toLocaleString("en-US", {
+  return (new Date(date)).toLocaleString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -35,7 +56,7 @@ function updateCard(card, obj) {
     obj.pages === 1 
     ? `${obj.pages} page.` 
     : `${obj.pages} pages.`;
-  cardToUpdate.querySelector(".card-date").textContent = `\xa0\xa0${formatDate(obj.date)}.\xa0`; // add white space around
+ cardToUpdate.querySelector(".card-date").textContent = `\xa0\xa0${formatDate(obj.date)}.\xa0`; // add white space around
 }
 
 /* 03 - delete a book object and card */
@@ -55,6 +76,7 @@ dialogCancelDelete.addEventListener("click", () => {
 dialogConfirmDelete.addEventListener("click", () => {
   myLibrary.splice(indexOfItemToDelete, 1);
   cardToDelete.remove();
+  saveLocal();
   dialogDelete.close();
 });
 
@@ -117,8 +139,9 @@ Book.prototype.editBook = function editBook() {
   this.author = editAuthor.value;
   this.pages = Number(editPages.value);
   editDate.value
-    ? (this.date = new Date(editDate.value))
+    ? (this.date = editDate.value)
     : (this.date = "No date set");
+  saveLocal();
 };
 
 /* 06 - create book card, set up buttons and checkboxes */
@@ -168,7 +191,8 @@ Book.prototype.createCard = function createCard() {
     editTitle.value = this.title;
     editAuthor.value = this.author;
     editPages.value = this.pages;
-    editDate.value = this.date.toLocaleDateString("en-CA"); // converts date object back to appropriate string
+    // editDate.value = this.date.toLocaleDateString("en-CA"); // converts date object back to appropriate string
+    editDate.value = this.date; // converts date object back to appropriate string
   });
 
   cardDelete.addEventListener("click", () => {
@@ -199,6 +223,8 @@ btnCancelCreate.addEventListener("click", () => {
   dialogAdd.close();
 });
 
+
+
 function createBook(e) {
   const tempBook = new Book(
     inputTitle.value,
@@ -207,20 +233,45 @@ function createBook(e) {
     inputDate.value
   );
   inputDate.value
-    ? (tempBook.date = new Date(inputDate.value))
+    ? (tempBook.date = inputDate.value)
     : (tempBook.date = "No date set");
   addBookToLibrary(tempBook);
   tempBook.createCard();
   formAdd.reset();
   e.preventDefault();
   dialogAdd.close();
+  saveLocal();
 }
 
 formAdd.addEventListener("submit", createBook);
 
+// 08 - local storage
+
+
+
+
+
+const JSONToBook = (book) => new Book(book.title, book.author, book.pages, book.isRead);
+
+const restoreLocal = () => {
+  const books = JSON.parse(localStorage.getItem('myLibrary'))
+  if (books) {
+    myLibrary = books.map((book) => JSONToBook(book))
+  } else {
+    myLibrary = []
+  };
+  myLibrary.forEach(book => book.createCard());
+} 
+
+
+
+
+
+restoreLocal();
+
 // temporary manually added example books, free to delete later:
 
-const doneWithThisBook = new Book(
+/* const doneWithThisBook = new Book(
   "Done with this book",
   "Jeremy Toogood",
   186,
@@ -293,6 +344,6 @@ displayLibrary.children[0].querySelector(
 
 
 longTitleAndAuthor.createCard();
-newBookToStart.createCard();
+newBookToStart.createCard(); */
 
 // end temporary
