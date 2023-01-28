@@ -1,50 +1,39 @@
 /*
 01 - main global variables
-02 - helper functions
-03 - delete a book object and card
-04 - edit a book object and card
-05 - book object manipulation
-06 - create book card, set up buttons and checkboxes
-07 - create new book
-08 - local storage
+02 - save to local storage
+03 - helper functions
+04 - delete a book object and card
+05 - edit a book object and card
+06 - book object manipulation
+07 - create book card, set up buttons and checkboxes
+08 - create new book
+09 - restore from local storage
 */
 
 /* 01 - main global variables */
 
-/* let myLibrary = [
-  {
-    title: "Other",
-    author: "The others",
-    pages: 1,
-    date: "2022-01-01"
-  },
-  {
-    title: "Newly added up front",
-    author: "Raymond",
-    pages: 2,
-    date: new Date("2023-01-23"),
-  } 
-]; */
-
 let myLibrary = [];
-
-const saveLocal = () => {
-  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-}
 
 const displayLibrary = document.getElementById("library");
 
 const template = document.getElementById("card-template");
 
-/* 02 - helper functions */
+/* 02 - save to local storage */
+
+const saveLocal = () => {
+  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+  console.log(JSON.stringify(myLibrary))
+}
+
+/* 03 - helper functions */
 
 function formatDate(date) {
-  return (new Date(date)).toLocaleString("en-US", {
+  return date.toLocaleString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
-}
+};
 
 function updateCard(card, obj) {
   const cardToUpdate = card; // no-param-reasign
@@ -59,7 +48,7 @@ function updateCard(card, obj) {
  cardToUpdate.querySelector(".card-date").textContent = `\xa0\xa0${formatDate(obj.date)}.\xa0`; // add white space around
 }
 
-/* 03 - delete a book object and card */
+/* 04 - delete a book object and card */
 
 const dialogDelete = document.getElementById("dialog-delete");
 const dialogDeleteText = document.getElementById("dialog-text");
@@ -80,7 +69,7 @@ dialogConfirmDelete.addEventListener("click", () => {
   dialogDelete.close();
 });
 
-/* 04 - edit a book object and card */
+/* 05 - edit a book object and card */
 
 const formEdit = document.getElementById("form-edit");
 const editTitle = document.getElementById("edit-title");
@@ -106,7 +95,7 @@ formEdit.addEventListener("submit", (e) => {
   dialogEdit.close();
 });
 
-/* 05 - book object manipulation */
+/* 06 - book object manipulation */
 
 function Book(title, author, pages, date) {
   this.title = title;
@@ -139,12 +128,12 @@ Book.prototype.editBook = function editBook() {
   this.author = editAuthor.value;
   this.pages = Number(editPages.value);
   editDate.value
-    ? (this.date = editDate.value)
+    ? (this.date = new Date(editDate.value))
     : (this.date = "No date set");
   saveLocal();
 };
 
-/* 06 - create book card, set up buttons and checkboxes */
+/* 07 - create book card, set up buttons and checkboxes */
 
 Book.prototype.createCard = function createCard() {
   this.setId();
@@ -173,15 +162,20 @@ Book.prototype.createCard = function createCard() {
 
   cardReadCheckbox.addEventListener("change", () => {
     this.toggleStatus("read", cardReadCheckbox.checked);
+    console.log("read status toggled");
     cardReference.dataset.read = this.read;
+    console.log("data attribute updated");
     cardReadLabel.childNodes[1].textContent = this.updateLabelText("read");
+    console.log("label text content updated");
     // textContent on label element alone won't work because checkbox is nested within the label so changing text content would overwrite the checkbox itself.
+    // saveLocal();
   });
 
   cardReturnedCheckbox.addEventListener("change", () => {
     this.toggleStatus("returned", cardReturnedCheckbox.checked);
     cardReference.dataset.returned = this.returned;
     cardReturnedLabel.childNodes[1].textContent = this.updateLabelText("returned");
+    // saveLocal();
   });
 
   cardEdit.addEventListener("click", () => {
@@ -201,9 +195,10 @@ Book.prototype.createCard = function createCard() {
     cardToDelete = cardReference;
     dialogDelete.showModal();
   });
+  console.log("restored from local")
 };
 
-/* 07 - create new book */
+/* 08 - create new book */
 
 const btnCreate = document.getElementById("btn-create");
 const btnCancelCreate = document.getElementById("cancel-create");
@@ -223,8 +218,6 @@ btnCancelCreate.addEventListener("click", () => {
   dialogAdd.close();
 });
 
-
-
 function createBook(e) {
   const tempBook = new Book(
     inputTitle.value,
@@ -233,7 +226,7 @@ function createBook(e) {
     inputDate.value
   );
   inputDate.value
-    ? (tempBook.date = inputDate.value)
+    ? (tempBook.date = new Date(inputDate.value))
     : (tempBook.date = "No date set");
   addBookToLibrary(tempBook);
   tempBook.createCard();
@@ -245,13 +238,9 @@ function createBook(e) {
 
 formAdd.addEventListener("submit", createBook);
 
-// 08 - local storage
+// 09 - restore from local storage
 
-
-
-
-
-const JSONToBook = (book) => new Book(book.title, book.author, book.pages, book.isRead);
+const JSONToBook = (book) => new Book(book.title, book.author, book.pages, book.date, book.read, book.returned);
 
 const restoreLocal = () => {
   const books = JSON.parse(localStorage.getItem('myLibrary'))
@@ -263,87 +252,4 @@ const restoreLocal = () => {
   myLibrary.forEach(book => book.createCard());
 } 
 
-
-
-
-
 restoreLocal();
-
-// temporary manually added example books, free to delete later:
-
-/* const doneWithThisBook = new Book(
-  "Done with this book",
-  "Jeremy Toogood",
-  186,
-  new Date("2022-12-23")
-);
-const aReturnedUnreadBook = new Book(
-  "A returned unread book",
-  "Harold Larch",
-  146,
-  new Date("2022-12-31")
-);
-const aBookThatIsRead = new Book(
-  "A book that is read",
-  "Ernest Scribbler",
-  44,
-  new Date("2023-01-23")
-);
-const longTitleAndAuthor = new Book(
-  "A book written by people with very long names, and whose title also just goes on and on and on and on and on and on and on and on and on and on",
-  "Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso, Hubert Blaine Wolfeschlegelsteinhausenbergerdorff Sr.",
-  1,
-  new Date("2023-01-23")
-);
-const newBookToStart = new Book(
-  "Newly added books go front",
-  "Raymond Luxury-Yacht",
-  41,
-  new Date("2023-01-23")
-);
-
-addBookToLibrary(doneWithThisBook);
-addBookToLibrary(aReturnedUnreadBook);
-addBookToLibrary(aBookThatIsRead);
-addBookToLibrary(longTitleAndAuthor);
-addBookToLibrary(newBookToStart);
-
-doneWithThisBook.createCard();
-doneWithThisBook.toggleStatus("read", true);
-doneWithThisBook.toggleStatus("returned", true);
-displayLibrary.children[0].querySelector(".card-read-checkbox").checked = true;
-displayLibrary.children[0].querySelector(
-  ".card-returned-checkbox"
-).checked = true;
-displayLibrary.children[0].dataset.read = doneWithThisBook.read;
-displayLibrary.children[0].dataset.returned = doneWithThisBook.returned;
-displayLibrary.children[0].querySelector(
-  ".card-read-label"
-).childNodes[1].textContent = doneWithThisBook.updateLabelText("read");
-displayLibrary.children[0].querySelector(
-  ".card-returned-label"
-).childNodes[1].textContent = doneWithThisBook.updateLabelText("returned");
-
-aReturnedUnreadBook.createCard();
-aReturnedUnreadBook.toggleStatus("returned", true);
-displayLibrary.children[0].querySelector(
-  ".card-returned-checkbox"
-).checked = true;
-displayLibrary.children[0].dataset.returned = aReturnedUnreadBook.returned;
-displayLibrary.children[0].querySelector(
-  ".card-returned-label"
-).childNodes[1].textContent = aReturnedUnreadBook.updateLabelText("returned");
-
-aBookThatIsRead.createCard();
-aBookThatIsRead.toggleStatus("read", true);
-displayLibrary.children[0].querySelector(".card-read-checkbox").checked = true;
-displayLibrary.children[0].dataset.read = aBookThatIsRead.read;
-displayLibrary.children[0].querySelector(
-  ".card-read-label"
-).childNodes[1].textContent = aBookThatIsRead.updateLabelText("read");
-
-
-longTitleAndAuthor.createCard();
-newBookToStart.createCard(); */
-
-// end temporary
