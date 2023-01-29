@@ -22,13 +22,13 @@ const template = document.getElementById("card-template");
 
 const saveLocal = () => {
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-  console.log(JSON.stringify(myLibrary))
+  console.table(myLibrary)
 }
 
 /* 03 - helper functions */
 
 function formatDate(date) {
-  return date.toLocaleString("en-US", {
+  return new Date(date).toLocaleString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -45,7 +45,10 @@ function updateCard(card, obj) {
     obj.pages === 1 
     ? `${obj.pages} page.` 
     : `${obj.pages} pages.`;
- cardToUpdate.querySelector(".card-date").textContent = `\xa0\xa0${formatDate(obj.date)}.\xa0`; // add white space around
+  cardToUpdate.querySelector(".card-date").textContent = 
+    obj.date 
+    ? `\xa0\xa0${formatDate(obj.date)}.\xa0` // add white space around
+    : `No date set`;
 }
 
 /* 04 - delete a book object and card */
@@ -114,6 +117,7 @@ Book.prototype.setId = function setId() {
 
 Book.prototype.toggleStatus = function toggleStatus(key, checked) {
   this[key] = !!checked; // if checkbox checked, set value of object's key to true
+  saveLocal();
 };
 
 Book.prototype.updateLabelText = function updateLabelText(prop) {
@@ -127,9 +131,7 @@ Book.prototype.editBook = function editBook() {
   this.title = editTitle.value;
   this.author = editAuthor.value;
   this.pages = Number(editPages.value);
-  editDate.value
-    ? (this.date = new Date(editDate.value))
-    : (this.date = "No date set");
+  this.date = editDate.value;
   saveLocal();
 };
 
@@ -162,20 +164,15 @@ Book.prototype.createCard = function createCard() {
 
   cardReadCheckbox.addEventListener("change", () => {
     this.toggleStatus("read", cardReadCheckbox.checked);
-    console.log("read status toggled");
     cardReference.dataset.read = this.read;
-    console.log("data attribute updated");
     cardReadLabel.childNodes[1].textContent = this.updateLabelText("read");
-    console.log("label text content updated");
     // textContent on label element alone won't work because checkbox is nested within the label so changing text content would overwrite the checkbox itself.
-    // saveLocal();
   });
 
   cardReturnedCheckbox.addEventListener("change", () => {
     this.toggleStatus("returned", cardReturnedCheckbox.checked);
     cardReference.dataset.returned = this.returned;
     cardReturnedLabel.childNodes[1].textContent = this.updateLabelText("returned");
-    // saveLocal();
   });
 
   cardEdit.addEventListener("click", () => {
@@ -195,7 +192,6 @@ Book.prototype.createCard = function createCard() {
     cardToDelete = cardReference;
     dialogDelete.showModal();
   });
-  console.log("restored from local")
 };
 
 /* 08 - create new book */
@@ -225,9 +221,6 @@ function createBook(e) {
     Number(inputPages.value),
     inputDate.value
   );
-  inputDate.value
-    ? (tempBook.date = new Date(inputDate.value))
-    : (tempBook.date = "No date set");
   addBookToLibrary(tempBook);
   tempBook.createCard();
   formAdd.reset();
@@ -240,16 +233,17 @@ formAdd.addEventListener("submit", createBook);
 
 // 09 - restore from local storage
 
-const JSONToBook = (book) => new Book(book.title, book.author, book.pages, book.date, book.read, book.returned);
-
 const restoreLocal = () => {
   const books = JSON.parse(localStorage.getItem('myLibrary'))
+  const JSONToBook = (book) => new Book(book.title, book.author, book.pages, book.date, book.read, book.returned);
   if (books) {
     myLibrary = books.map((book) => JSONToBook(book))
   } else {
     myLibrary = []
   };
-  myLibrary.forEach(book => book.createCard());
+  myLibrary.slice().reverse().forEach(book => book.createCard()); // make a copy of array then reverse, so last added books display first
+  console.log("restored")
+  console.table(myLibrary)
 } 
 
 restoreLocal();

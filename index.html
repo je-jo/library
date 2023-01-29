@@ -32,7 +32,7 @@
         <form id="form-add">
           <label for="input-title">Title: <input type="text" id="input-title" maxlength="140" required></label>
           <label for="input-author">Author: <input type="text" id="input-author" maxlength="140"></label>
-          <label for="input-pages">Pages: <input type="number" id="input-pages" min="0"></label>
+          <label for="input-pages">Pages: <input type="number" id="input-pages" min="0" max="999999"></label>
           <label for="input-date">Return by: <input type="date" id="input-date"></label>
           <div class="wrapper wrapper--button">
             <button type="button" id="cancel-create">Cancel</button>
@@ -47,7 +47,7 @@
         <form id="form-edit">
           <label for="edit-title">Title: <input type="text" id="edit-title" maxlength="140" required></label>
           <label for="edit-author">Author: <input type="text" id="edit-author" maxlength="140"></label>
-          <label for="edit-pages">Pages: <input type="number" id="edit-pages" min="0"></label>
+          <label for="edit-pages">Pages: <input type="number" id="edit-pages" min="0" max="999999"></label>
           <label for="edit-date">Return by: <input type="date" id="edit-date"></label>
           <div class="wrapper wrapper--button">
             <button type="button" id="cancel-edit">Cancel</button>
