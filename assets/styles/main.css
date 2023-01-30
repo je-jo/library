@@ -203,13 +203,13 @@ label {
   gap: 0.5rem;
 }
 
-.card label {
+.wrapper--checkbox {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 0.5rem;
 }
-.card label:hover {
+.wrapper--checkbox:hover {
   filter: drop-shadow(0 0 6px rgba(249, 154, 21, 0.5));
 }
 

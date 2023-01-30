@@ -19,7 +19,7 @@ A Library app to keep track of borrowed books. Built using JavaScript, HTML, and
 
 ### Description
 
-A small borrowed books tracking app made as a part of [The Odin Project](https://www.theodinproject.com) curriculum, with added functionality to keep track of dates when books are due to be returned. User can add, edit and delete book records, and track the read and returned status.
+A small borrowed books tracking app made as a part of [The Odin Project](https://www.theodinproject.com) curriculum, with added functionality to keep track of dates when books are due to be returned. User can add, edit and delete book records, and track the read and returned status. The app uses local storage, so the book records are stored between sessions.
 
 ### Screenshot
 
@@ -50,7 +50,7 @@ The "dialog" element is used instead of confirm prompt for deletion.
 
 ### Continued Development
 
-- [ ] Add storage;
+- [x] Add storage;
 - [ ] Check due dates against current date;
 - [ ] Add filters and pagination, maybe search;
 - [ ] Add animations;
@@ -65,6 +65,7 @@ The "dialog" element is used instead of confirm prompt for deletion.
 - [Introducing the Dialog Element](https://webkit.org/blog/12209/introducing-the-dialog-element/)
 - [Custom CSS Styles for Form Inputs and Textareas](https://moderncss.dev/custom-css-styles-for-form-inputs-and-textareas/)
 - [Favicon Generator](https://favicon.io/favicon-generator/)
+- [Using the Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API)
 
 ## Author
 

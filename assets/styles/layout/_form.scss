@@ -30,7 +30,7 @@ label {
     gap: 0.5rem;
 }
 
-.card label { // label:has(input[type="checkbox"]) when better supported
+.wrapper--checkbox { // label:has(input[type="checkbox"]) when better supported
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;

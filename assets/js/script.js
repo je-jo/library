@@ -21,8 +21,7 @@ const template = document.getElementById("card-template");
 /* 02 - save to local storage */
 
 const saveLocal = () => {
-  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-  console.table(myLibrary)
+  localStorage.setItem('savedLibrary', JSON.stringify(myLibrary));
 }
 
 /* 03 - helper functions */
@@ -49,6 +48,14 @@ function updateCard(card, obj) {
     obj.date 
     ? `\xa0\xa0${formatDate(obj.date)}.\xa0` // add white space around
     : `No date set`;
+  const cardReadCheckbox = cardToUpdate.querySelector(".card-read-checkbox");
+  cardToUpdate.dataset.read = obj.read;
+  cardReadCheckbox.checked = obj.read;
+  cardReadCheckbox.nextElementSibling.textContent = obj.updateLabelText("read"); // label
+  const cardReturnedCheckbox = cardToUpdate.querySelector(".card-returned-checkbox");
+  cardToUpdate.dataset.returned = obj.returned;
+  cardReturnedCheckbox.checked = obj.returned;
+  cardReturnedCheckbox.nextElementSibling.textContent = obj.updateLabelText("returned");
 }
 
 /* 04 - delete a book object and card */
@@ -100,11 +107,13 @@ formEdit.addEventListener("submit", (e) => {
 
 /* 06 - book object manipulation */
 
-function Book(title, author, pages, date) {
+function Book(title, author, pages, date, read, returned) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.date = date;
+  this.read = read;
+  this.returned = returned;
 }
 
 function addBookToLibrary(book) {
@@ -117,7 +126,6 @@ Book.prototype.setId = function setId() {
 
 Book.prototype.toggleStatus = function toggleStatus(key, checked) {
   this[key] = !!checked; // if checkbox checked, set value of object's key to true
-  saveLocal();
 };
 
 Book.prototype.updateLabelText = function updateLabelText(prop) {
@@ -146,15 +154,13 @@ Book.prototype.createCard = function createCard() {
   cardReference.setAttribute("id", this.id);
 
   const cardReadCheckbox = card.querySelector(".card-read-checkbox");
-  const cardReadLabel = card.querySelector(".card-read-label");
-  cardReadLabel.setAttribute("for", `card-read-${this.id}`);
-  cardReadCheckbox.setAttribute("id", cardReadLabel.getAttribute("for")); // checkbox and label must have matching and unique ids and fors
+  cardReadCheckbox.setAttribute("id", `card-read-${this.id}`); 
+  cardReadCheckbox.nextElementSibling.setAttribute("for", cardReadCheckbox.getAttribute("id")); // label
+  // checkbox and label must have matching and unique ids and fors 
 
   const cardReturnedCheckbox = card.querySelector(".card-returned-checkbox");
-  const cardReturnedLabel = card.querySelector(".card-returned-label");
-  cardReturnedLabel.setAttribute("for", `card-returned-${this.id}`);
-  cardReturnedCheckbox.setAttribute("id", cardReturnedLabel.getAttribute("for")
-  );
+  cardReturnedCheckbox.setAttribute("id", `card-returned-${this.id}`); 
+  cardReturnedCheckbox.nextElementSibling.setAttribute("for", cardReturnedCheckbox.getAttribute("id")); 
 
   const cardEdit = card.querySelector(".card-edit");
   const cardDelete = card.querySelector(".card-delete");
@@ -164,15 +170,14 @@ Book.prototype.createCard = function createCard() {
 
   cardReadCheckbox.addEventListener("change", () => {
     this.toggleStatus("read", cardReadCheckbox.checked);
-    cardReference.dataset.read = this.read;
-    cardReadLabel.childNodes[1].textContent = this.updateLabelText("read");
-    // textContent on label element alone won't work because checkbox is nested within the label so changing text content would overwrite the checkbox itself.
+    saveLocal();
+    updateCard(cardReference, this);
   });
 
   cardReturnedCheckbox.addEventListener("change", () => {
     this.toggleStatus("returned", cardReturnedCheckbox.checked);
-    cardReference.dataset.returned = this.returned;
-    cardReturnedLabel.childNodes[1].textContent = this.updateLabelText("returned");
+    saveLocal();
+    updateCard(cardReference, this);
   });
 
   cardEdit.addEventListener("click", () => {
@@ -183,7 +188,7 @@ Book.prototype.createCard = function createCard() {
     editAuthor.value = this.author;
     editPages.value = this.pages;
     // editDate.value = this.date.toLocaleDateString("en-CA"); // converts date object back to appropriate string
-    editDate.value = this.date; // converts date object back to appropriate string
+    editDate.value = this.date;
   });
 
   cardDelete.addEventListener("click", () => {
@@ -219,7 +224,7 @@ function createBook(e) {
     inputTitle.value,
     inputAuthor.value,
     Number(inputPages.value),
-    inputDate.value
+    inputDate.value,
   );
   addBookToLibrary(tempBook);
   tempBook.createCard();
@@ -233,17 +238,24 @@ formAdd.addEventListener("submit", createBook);
 
 // 09 - restore from local storage
 
-const restoreLocal = () => {
-  const books = JSON.parse(localStorage.getItem('myLibrary'))
-  const JSONToBook = (book) => new Book(book.title, book.author, book.pages, book.date, book.read, book.returned);
-  if (books) {
-    myLibrary = books.map((book) => JSONToBook(book))
+function restoreLocal() {
+  if(!localStorage.getItem('savedLibrary')) {
+        // example books for first time users
+    myLibrary = [
+      new Book("Newly added books go front", "Raymond Luxury-Yacht", 41, "2023-01-23", false, false),
+      new Book("A book written by people with very long names, and whose title also just goes on and on and on and on and on and on and on and on and on and on", 
+      "Pablo Diego José Francisco de Paula Juan Nepomuceno María de los Remedios Cipriano de la Santísima Trinidad Ruiz y Picasso, Hubert Blaine Wolfeschlegelsteinhausenbergerdorff Sr.", 
+      1, "2023-01-23", false, false),
+      new Book("A book that is read", "Ernest Scribbler", 44, "2023-01-23", true, false),
+      new Book("A returned unread book", "Harold Larch", 146, "2022-12-31", false, true),
+      new Book("Done with this book", "Jeremy Toogood", 186, "2022-12-20", true, true)
+    ];
   } else {
-    myLibrary = []
-  };
+    myLibrary = JSON.parse(localStorage.getItem('savedLibrary'));
+    myLibrary = myLibrary.map(book => new Book(book.title, book.author, book.pages, book.date, book.read, book.returned));
+    
+  }
   myLibrary.slice().reverse().forEach(book => book.createCard()); // make a copy of array then reverse, so last added books display first
-  console.log("restored")
-  console.table(myLibrary)
-} 
+}
 
 restoreLocal();

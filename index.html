@@ -81,10 +81,14 @@
       </div>
       <div class="card-body">
         <p>Return by: <span class="card-date"></span></p>
-        <label for="card-read" class="card-read-label"><input type="checkbox" id="card-read"
-            class="card-read-checkbox">Not read yet.</label>
-        <label for="card-returned" class="card-returned-label"><input type="checkbox" id="card-returned"
-            class="card-returned-checkbox">Not returned yet.</label>
+        <div class="wrapper--checkbox">
+          <input type="checkbox" id="card-read" class="card-read-checkbox">
+          <label for="card-read" class="card-read-label">Not read yet.</label>
+        </div>
+        <div class="wrapper--checkbox">
+          <input type="checkbox" id="card-returned" class="card-returned-checkbox">
+          <label for="card-returned" class="card-returned-label">Not returned yet.</label>
+        </div>
       </div>
       <div class="card-footer wrapper wrapper--button">
         <button type="button" class="card-edit">Edit</button>
