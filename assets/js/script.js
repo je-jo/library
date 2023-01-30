@@ -225,6 +225,8 @@ function createBook(e) {
     inputAuthor.value,
     Number(inputPages.value),
     inputDate.value,
+    false,
+    false
   );
   addBookToLibrary(tempBook);
   tempBook.createCard();
