@@ -23,7 +23,9 @@ A small borrowed books tracking app made as a part of [The Odin Project](https:/
 
 ### Screenshot
 
-![](screenshot.png)
+<p align="center">
+  <img src="assets/images/screenshot.png" width="360"/>
+</p>
 
 ### Links
 
@@ -62,6 +64,7 @@ The "dialog" element is used instead of confirm prompt for deletion.
 - [7-1 pattern boilerplate](https://github.com/KittyGiraudel/sass-boilerplate/tree/master/stylesheets) - A boilerplate for 7-1 Sass Architecture.
 - [HTML / Sass Jumpstart]() - Mostly plucked some sensible values (font sizes, spacings, buttons, etc) from here and a reset file.
 - [google web fonts helper](https://gwfh.mranftl.com/fonts) - A Hassle-Free Way to Self-Host Google Fonts.
+- [Paraiso colors](https://github.com/je-jo/paraiso-colors)
 - [Introducing the Dialog Element](https://webkit.org/blog/12209/introducing-the-dialog-element/)
 - [Custom CSS Styles for Form Inputs and Textareas](https://moderncss.dev/custom-css-styles-for-form-inputs-and-textareas/)
 - [Favicon Generator](https://favicon.io/favicon-generator/)
@@ -70,6 +73,7 @@ The "dialog" element is used instead of confirm prompt for deletion.
 ## Author
 
 - [Github](https://github.com/je-jo)
+- [LinkedIn](https://www.linkedin.com/in/jelena-jovicic/)
 - [Frontend Mentor](https://www.frontendmentor.io/profile/je-jo)
 - [Codepen](https://codepen.io/je-jo)
 - [Twitter](https://twitter.com/jelena_jo_)
