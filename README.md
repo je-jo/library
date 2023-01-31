@@ -24,7 +24,7 @@ A small borrowed books tracking app made as a part of [The Odin Project](https:/
 ### Screenshot
 
 <p align="center">
-  <img src="assets/images/screenshot.png" width="360"/>
+  <img src="screenshot.png" width="360"/>
 </p>
 
 ### Links
